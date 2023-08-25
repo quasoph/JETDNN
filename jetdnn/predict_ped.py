@@ -45,6 +45,7 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
         integer: mean squared error of these predictions.
 
     THIS SHOULD ALSO RETURN A MODEL SUMMARY OF SOME KIND.
+    Could be more specific to JET data: either uses that specific data format, or plots pedestals with tanh model based on pedestal height (?)
 
     """
 
