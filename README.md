@@ -17,7 +17,7 @@ or
 Requirements
 ------------------
 
-The packages required to run JETDNN can be found on GitHub here: `https://github.com/quasoph/jetdnn/blob/main/requirements.txt`_.
+The packages required to run JETDNN can be found on GitHub here: https://github.com/quasoph/jetdnn/blob/main/requirements.txt.
 
 Functions
 ------------------
