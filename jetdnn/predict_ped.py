@@ -16,6 +16,10 @@ print(tf.__version__)
     - create warnings for incorrect dtypes etc
 """
 
+def get_train_test_data(dataset):
+    train_data, test_data = np.split(dataset.sample(frac=1,random_state=42),[int(.8*len(dataset))]) # this works!
+    return train_data, test_data
+
 def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
 
     """
@@ -55,7 +59,7 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
     SPLIT TRAIN AND TEST DATA
     """
 
-    train_data, test_data = np.split(data.sample(frac=1,random_state=42),[int(.8*len(data))]) # this works!
+    train_data, test_data = get_train_test_data(data)
     if maxoutput == True:
         print("Train and test data are of type " + str(type(train_data)))
         print("Train data size is " + str(train_data.size))
