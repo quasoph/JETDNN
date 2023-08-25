@@ -6,8 +6,7 @@ import seaborn as sns
 from .predict_ped import multi_ped
 
 """
-The line below means we have shot numbers corresponding with the test inputs, useful for plotting at the end. It's a separate DF as we don't want to
-include the shots as a feature in the neural network input.
+Functions for plotting and inspecting data. E.g. seaborn pairplot, and if inputs have a certain correlation with the output, the program suggests using them for the DNN.
 """
 
 def plot_params():

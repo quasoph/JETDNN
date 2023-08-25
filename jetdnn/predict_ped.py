@@ -9,7 +9,7 @@ from tensorflow.keras import layers
 
 print(tf.__version__)
 
-def multi_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
+def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
 
     """
     REQUIRED ARGUMENTS:
@@ -29,7 +29,7 @@ def multi_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,ep
     - automatically convert arguments to their required dtype at the start of this function
     - create warnings for incorrect dtypes etc
 
-    Returns pedestal predictions as a list, and the mean squared error of these predictions.
+    Returns pedestal predictions as a list for a single pedestal, and the mean squared error of these predictions.
     """
 
     # DATA CLEANING
@@ -183,3 +183,12 @@ def multi_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,ep
     print(m_s_e)
 
     return flat_ped, m_s_e
+
+def multi_ped():
+    """
+    Function to predict multiple different pedestals from multiple inputs. May be less accurate as hyperparameters must be the
+    same for all outputs, however less time consuming if you want to predict multiple types of pedestal.
+    WIP.
+    """
+
+    return
