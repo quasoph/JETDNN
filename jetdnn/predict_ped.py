@@ -44,6 +44,8 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
         array: pedestal height predictions
         integer: mean squared error of these predictions.
 
+    THIS SHOULD ALSO RETURN A MODEL SUMMARY OF SOME KIND.
+
     """
 
     # DATA CLEANING
