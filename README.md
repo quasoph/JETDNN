@@ -6,4 +6,4 @@ JETDNN: Python package using Deep Neural Networks (DNNs) to find H-mode plasma p
 
 For documentation, see: ____
 
-
+[![GitHub Release](https://github-basic-badges.herokuapp.com/release/quasoph/jetdnn.svg)]()
