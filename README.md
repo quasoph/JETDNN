@@ -25,7 +25,7 @@ Functions
 
 Predict a list of pedestal heights for a single type of pedestal, and calculate the mean squared error of these predictions.
 
-Args:
+### Arguments:
 
 `csv_name` (string): filename of csv.
 
@@ -47,5 +47,7 @@ Args:
 `maxoutput` (Boolean): optional. Set equal to True to display a more detailed output, useful for debugging.
 
 Returns:
+
     array: pedestal height predictions
+    
     integer: mean squared error of these predictions.
