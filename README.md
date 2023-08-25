@@ -3,7 +3,7 @@
 JETDNN: Python package using Deep Neural Networks (DNNs) to find H-mode plasma pedestal heights from multiple engineering parameters in H-mode JET data.
 Created by S. Frankel, J. Simpson and E. Solano.
 
-[![DOI](https://zenodo.org/badge/682657741.svg)](https://zenodo.org/badge/latestdoi/682657741)
+[![DOI](https://zenodo.org/badge/682657741.svg)](https://zenodo.org/badge/latestdoi/682657741) [![PyPI downloads](https://img.shields.io/pypi/dm/JETDNN.svg)](https://pypistats.org/packages/JETDNN)
 
 Installation
 ------------------
