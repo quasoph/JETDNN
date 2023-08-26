@@ -20,6 +20,10 @@ def get_train_test_data(dataset):
     train_data, test_data = np.split(dataset.sample(frac=1,random_state=42),[int(.8*len(dataset))]) # this works!
     return train_data, test_data
 
+def read_data(csv_name):
+    data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
+    return(data)
+
 def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
 
     """
@@ -48,16 +52,6 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
     Could be more specific to JET data: either uses that specific data format, or plots pedestals with tanh model based on pedestal height (?) would need neutral flux data in the same dataset though
 
     """
-
-    # DATA CLEANING
-
-    def read_data(csv_name):
-        data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
-        if maxoutput == True:
-            print(data.columns) # column names
-            print(data.iloc[:,0]) # first column
-            print(data.iloc[:,1]) # second column
-        return(data)
     
     data = read_data(csv_name)
 
