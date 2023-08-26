@@ -51,7 +51,7 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
 
     # DATA CLEANING
 
-    data = pd.read_csv(os.path.abspath(csv_name),index_col=False,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
+    data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
     if maxoutput == True:
         print(data.columns) # column names
         print(data.iloc[:,0]) # first column
