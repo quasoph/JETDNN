@@ -24,10 +24,10 @@ def read_data(csv_name):
     data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
     return(data)
 
-def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
+def predict_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
 
     """
-    single_ped
+    predict_single
 
     Predict a list of pedestal heights for a single type of pedestal, and calculate the mean squared error of these predictions.
 
@@ -52,7 +52,7 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
     Could be more specific to JET data: either uses that specific data format, or plots pedestals with tanh model based on pedestal height (?) would need neutral flux data in the same dataset though
 
     """
-    
+
     data = read_data(csv_name)
 
     """
@@ -198,7 +198,7 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
 
     return flat_ped, m_s_e
 
-def multi_ped():
+def predict_multi():
     """
     Function to predict multiple different pedestals from multiple inputs. May be less accurate as hyperparameters must be the
     same for all outputs, however less time consuming if you want to predict multiple types of pedestal.
