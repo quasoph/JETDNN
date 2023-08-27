@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prediction Functions &mdash; JETDNN 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to JETDNN’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            JETDNN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Prediction Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#predict.build_and_test_single"><code class="docutils literal notranslate"><span class="pre">build_and_test_single()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predict.get_train_test_data"><code class="docutils literal notranslate"><span class="pre">get_train_test_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predict.predict_single"><code class="docutils literal notranslate"><span class="pre">predict_single()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">JETDNN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Prediction Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/predict.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="prediction-functions">
+<span id="prediction"></span><h1>Prediction Functions<a class="headerlink" href="#prediction-functions" title="Link to this heading"></a></h1>
+<p>Functions to build and use predictive Deep Neural Networks to find plasma pedestal heights.</p>
+<dl class="py function" id="module-predict">
+<dt class="sig sig-object py" id="predict.build_and_test_single">
+<span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">build_and_test_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxoutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.build_and_test_single" title="Link to this definition"></a></dt>
+<dd><p>Build and test a model predicting a single column of data from multiple input columns. Calculate the mean squared error of model predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_name</strong> (<em>string</em>) – filename of csv.</p></li>
+<li><p><strong>input_cols</strong> (<em>list</em>) – list of column names (as strings) of engineering parameters to predict from.</p></li>
+<li><p><strong>output_col</strong> (<em>string</em>) – name of column you’d like to predict.</p></li>
+<li><p><strong>plot_col</strong> (<em>string</em>) – optional. Name of column you’d like to plot your predictions against, selected from the engineering parameters.</p></li>
+<li><p><strong>learning_rate</strong> (<em>integer</em>) – optional. Value from 0.1 - 0.0001 representing the learning rate of the Keras Adam optimizer.
+Documentation for the Adam optimizer can be found here: <a class="reference external" href="https://keras.io/api/optimizers/adam/">https://keras.io/api/optimizers/adam/</a>.</p></li>
+<li><p><strong>epochs</strong> (<em>integer</em>) – optional. Number of epochs for training the DNN. Typical starting values may be 50 for a smaller dataset up to 500 for a large dataset.
+If not given, the function will use a default value of 50.</p></li>
+<li><p><strong>batch_size</strong> (<em>integer</em>) – optional. Batch size for training the DNN, either 8, 16, 32 or 64. Smaller batch sizes may give more accurate predictions but take more time.
+If not given, the function will use a default value of 8.</p></li>
+<li><p><strong>maxoutput</strong> (<em>Boolean</em>) – optional. Set equal to True to display a more detailed output, useful for debugging.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pedestal height predictions
+integer: mean squared error of these predictions.
+model: trained DNN model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="predict.get_train_test_data">
+<span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">get_train_test_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.get_train_test_data" title="Link to this definition"></a></dt>
+<dd><p>Split a chosen dataset randomly into an 80/20 train-test split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<em>string</em>) – filename of csv.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>training data
+array: test data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="predict.predict_single">
+<span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">predict_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_cols</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.predict_single" title="Link to this definition"></a></dt>
+<dd><p>Predict pedestal heights using a trained DNN created with build_and_test_single.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>Tensorflow model</em>) – trained DNN from build_and_test_single to predict a column with.</p></li>
+<li><p><strong>input_cols</strong> (<em>array</em>) – input columns to apply the trained model on.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>predicted pedestal heights.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to JETDNN’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, S. Frankel, J. Simpson and E. Solano.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
