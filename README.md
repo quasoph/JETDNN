@@ -24,33 +24,14 @@ The packages required to run JETDNN can be found on GitHub here: https://github.
 Functions
 ------------------
 
-`jetdnn.predict_ped.single_ped()`
+JETDNN functions cover three main areas: data inspection, pedestal prediction, and visualisation. Detailed documentation can be found at https://jetdnn.readthedocs.io/en/latest/.
 
-Predict a list of pedestal heights for a single type of pedestal, and calculate the mean squared error of these predictions.
+An example workflow can look like:
 
-### Arguments:
+1. Inspect data with `jetdnn.interpret.plot_params()` to find engineering parameters strongly correlated to pedestal heights.
 
-`csv_name` (string): filename of csv.
+2. Train and test a DNN to find a model relating these parameters with pedestal height, using `jetdnn.predict.build_and_test_single()`.
 
-`input_cols` (list): list of column names (as strings) of engineering parameters to predict from.
+3. Predict pedestal heights using this model from any dataset with `jetdnn.predict.predict_single()`.
 
-`output_col` (string): name of column you'd like to predict.
-
-`plot_col` (string): optional. Name of column you'd like to plot your predictions against, selected from the engineering parameters.
-
-`learning_rate` (integer): optional. Value from 0.1 - 0.0001 representing the learning rate of the Keras Adam optimizer.
-    Documentation for the Adam optimizer can be found here: https://keras.io/api/optimizers/adam/.
-
-`epochs` (integer): optional. Number of epochs for training the DNN. Typical starting values may be 50 for a smaller dataset up to 500 for a large dataset.
-    If not given, the function will use a default value of 50.
-
-`batch_size` (integer): optional. Batch size for training the DNN, either 8, 16, 32 or 64. Smaller batch sizes may give more accurate predictions but take more time.
-    If not given, the function will use a default value of 8.
-
-`maxoutput` (Boolean): optional. Set equal to True to display a more detailed output, useful for debugging.
-
-Returns:
-
-    array: pedestal height predictions
-    
-    integer: mean squared error of these predictions.
+4. Visualise model and predictions with functions from `jetdnn.visualise`.
