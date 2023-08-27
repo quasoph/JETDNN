@@ -8,3 +8,4 @@ pytest
 os
 sys
 jetdnn
+sphinx_rtd_theme
