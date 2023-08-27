@@ -1,7 +1,9 @@
 import tensorflow
 from tensorflow import keras
-import predict_ped
+import predict
 from keras.utils.vis_utils import plot_model
+import matplotlib.pyplot as plt
+import numpy as np
 
 # VISUALISE MODELS
 

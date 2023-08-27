@@ -15,5 +15,5 @@ def test_predict_single():
 
     output_expected = testdf
 
-    output = sys.predict_ped.read_data(testcsv)
+    output = sys.predict.read_data(testcsv)
     assert output == pytest.approx(output_expected,abs=1e-3)
