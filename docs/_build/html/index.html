@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Prediction Functions" href="predict.html" /> 
+    <link rel="next" title="Data Inspection Functions" href="inspect.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,7 +43,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="inspect.html">Data Inspection Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="predict.html">Prediction Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualise.html">Visualisation Functions</a></li>
 </ul>
 
         </div>
@@ -75,10 +77,93 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="inspect.html">Data Inspection Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ArgInfo"><code class="docutils literal notranslate"><span class="pre">ArgInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ArgSpec"><code class="docutils literal notranslate"><span class="pre">ArgSpec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.Arguments"><code class="docutils literal notranslate"><span class="pre">Arguments</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.Attribute"><code class="docutils literal notranslate"><span class="pre">Attribute</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.BlockFinder"><code class="docutils literal notranslate"><span class="pre">BlockFinder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.BoundArguments"><code class="docutils literal notranslate"><span class="pre">BoundArguments</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ClassFoundException"><code class="docutils literal notranslate"><span class="pre">ClassFoundException</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ClosureVars"><code class="docutils literal notranslate"><span class="pre">ClosureVars</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.EndOfBlock"><code class="docutils literal notranslate"><span class="pre">EndOfBlock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.FrameInfo"><code class="docutils literal notranslate"><span class="pre">FrameInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.FullArgSpec"><code class="docutils literal notranslate"><span class="pre">FullArgSpec</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.Parameter"><code class="docutils literal notranslate"><span class="pre">Parameter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.Traceback"><code class="docutils literal notranslate"><span class="pre">Traceback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.classify_class_attrs"><code class="docutils literal notranslate"><span class="pre">classify_class_attrs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.cleandoc"><code class="docutils literal notranslate"><span class="pre">cleandoc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.currentframe"><code class="docutils literal notranslate"><span class="pre">currentframe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.findsource"><code class="docutils literal notranslate"><span class="pre">findsource()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.formatargspec"><code class="docutils literal notranslate"><span class="pre">formatargspec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.formatargvalues"><code class="docutils literal notranslate"><span class="pre">formatargvalues()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getabsfile"><code class="docutils literal notranslate"><span class="pre">getabsfile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getargs"><code class="docutils literal notranslate"><span class="pre">getargs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getargspec"><code class="docutils literal notranslate"><span class="pre">getargspec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getargvalues"><code class="docutils literal notranslate"><span class="pre">getargvalues()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getattr_static"><code class="docutils literal notranslate"><span class="pre">getattr_static()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getblock"><code class="docutils literal notranslate"><span class="pre">getblock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getcallargs"><code class="docutils literal notranslate"><span class="pre">getcallargs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getclasstree"><code class="docutils literal notranslate"><span class="pre">getclasstree()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getclosurevars"><code class="docutils literal notranslate"><span class="pre">getclosurevars()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getcomments"><code class="docutils literal notranslate"><span class="pre">getcomments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getcoroutinelocals"><code class="docutils literal notranslate"><span class="pre">getcoroutinelocals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getcoroutinestate"><code class="docutils literal notranslate"><span class="pre">getcoroutinestate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getdoc"><code class="docutils literal notranslate"><span class="pre">getdoc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getfile"><code class="docutils literal notranslate"><span class="pre">getfile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getframeinfo"><code class="docutils literal notranslate"><span class="pre">getframeinfo()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getfullargspec"><code class="docutils literal notranslate"><span class="pre">getfullargspec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getgeneratorlocals"><code class="docutils literal notranslate"><span class="pre">getgeneratorlocals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getgeneratorstate"><code class="docutils literal notranslate"><span class="pre">getgeneratorstate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getinnerframes"><code class="docutils literal notranslate"><span class="pre">getinnerframes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getlineno"><code class="docutils literal notranslate"><span class="pre">getlineno()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getmembers"><code class="docutils literal notranslate"><span class="pre">getmembers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getmodule"><code class="docutils literal notranslate"><span class="pre">getmodule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getmodulename"><code class="docutils literal notranslate"><span class="pre">getmodulename()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getmro"><code class="docutils literal notranslate"><span class="pre">getmro()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getouterframes"><code class="docutils literal notranslate"><span class="pre">getouterframes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getsource"><code class="docutils literal notranslate"><span class="pre">getsource()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getsourcefile"><code class="docutils literal notranslate"><span class="pre">getsourcefile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.getsourcelines"><code class="docutils literal notranslate"><span class="pre">getsourcelines()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.indentsize"><code class="docutils literal notranslate"><span class="pre">indentsize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isabstract"><code class="docutils literal notranslate"><span class="pre">isabstract()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isasyncgen"><code class="docutils literal notranslate"><span class="pre">isasyncgen()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isasyncgenfunction"><code class="docutils literal notranslate"><span class="pre">isasyncgenfunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isawaitable"><code class="docutils literal notranslate"><span class="pre">isawaitable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isbuiltin"><code class="docutils literal notranslate"><span class="pre">isbuiltin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isclass"><code class="docutils literal notranslate"><span class="pre">isclass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.iscode"><code class="docutils literal notranslate"><span class="pre">iscode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.iscoroutine"><code class="docutils literal notranslate"><span class="pre">iscoroutine()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.iscoroutinefunction"><code class="docutils literal notranslate"><span class="pre">iscoroutinefunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isdatadescriptor"><code class="docutils literal notranslate"><span class="pre">isdatadescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isframe"><code class="docutils literal notranslate"><span class="pre">isframe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isfunction"><code class="docutils literal notranslate"><span class="pre">isfunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isgenerator"><code class="docutils literal notranslate"><span class="pre">isgenerator()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isgeneratorfunction"><code class="docutils literal notranslate"><span class="pre">isgeneratorfunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isgetsetdescriptor"><code class="docutils literal notranslate"><span class="pre">isgetsetdescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ismemberdescriptor"><code class="docutils literal notranslate"><span class="pre">ismemberdescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ismethod"><code class="docutils literal notranslate"><span class="pre">ismethod()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ismethoddescriptor"><code class="docutils literal notranslate"><span class="pre">ismethoddescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.ismodule"><code class="docutils literal notranslate"><span class="pre">ismodule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.isroutine"><code class="docutils literal notranslate"><span class="pre">isroutine()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.istraceback"><code class="docutils literal notranslate"><span class="pre">istraceback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.signature"><code class="docutils literal notranslate"><span class="pre">signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.stack"><code class="docutils literal notranslate"><span class="pre">stack()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.trace"><code class="docutils literal notranslate"><span class="pre">trace()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.unwrap"><code class="docutils literal notranslate"><span class="pre">unwrap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspect.html#inspect.walktree"><code class="docutils literal notranslate"><span class="pre">walktree()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="predict.html">Prediction Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="predict.html#predict.build_and_test_single"><code class="docutils literal notranslate"><span class="pre">build_and_test_single()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="predict.html#predict.get_train_test_data"><code class="docutils literal notranslate"><span class="pre">get_train_test_data()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="predict.html#predict.predict_single"><code class="docutils literal notranslate"><span class="pre">predict_single()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visualise.html">Visualisation Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="visualise.html#visualise.density_npm_plot"><code class="docutils literal notranslate"><span class="pre">density_npm_plot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualise.html#visualise.display_model"><code class="docutils literal notranslate"><span class="pre">display_model()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -97,7 +182,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="predict.html" class="btn btn-neutral float-right" title="Prediction Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="inspect.html" class="btn btn-neutral float-right" title="Data Inspection Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

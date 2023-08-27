@@ -99,9 +99,9 @@ If not given, the function will use a default value of 8.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>pedestal height predictions
+<dd class="field-even"><p>pedestal height predictions.
 integer: mean squared error of these predictions.
-model: trained DNN model.</p>
+Tensorflow Model: trained DNN model.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>array</p>
@@ -112,14 +112,14 @@ model: trained DNN model.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="predict.get_train_test_data">
 <span class="sig-prename descclassname"><span class="pre">predict.</span></span><span class="sig-name descname"><span class="pre">get_train_test_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#predict.get_train_test_data" title="Link to this definition"></a></dt>
-<dd><p>Split a chosen dataset randomly into an 80/20 train-test split.</p>
+<dd><p>Split a chosen dataset randomly into an 80/20 train-test split. Display Numpy shapes of train and test data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>dataset</strong> (<em>string</em>) – filename of csv.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>training data
-array: test data</p>
+<dd class="field-even"><p>training data.
+array: test data.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>array</p>
@@ -134,7 +134,7 @@ array: test data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<em>Tensorflow model</em>) – trained DNN from build_and_test_single to predict a column with.</p></li>
+<li><p><strong>model</strong> (<em>Tensorflow Model</em>) – trained DNN from build_and_test_single to predict a column with.</p></li>
 <li><p><strong>input_cols</strong> (<em>array</em>) – input columns to apply the trained model on.</p></li>
 </ul>
 </dd>

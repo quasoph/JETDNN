@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Inspection Functions &mdash; JETDNN 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Prediction Functions" href="predict.html" />
+    <link rel="prev" title="Welcome to JETDNN’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            JETDNN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Inspection Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ArgInfo"><code class="docutils literal notranslate"><span class="pre">ArgInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgInfo.args"><code class="docutils literal notranslate"><span class="pre">ArgInfo.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgInfo.keywords"><code class="docutils literal notranslate"><span class="pre">ArgInfo.keywords</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgInfo.locals"><code class="docutils literal notranslate"><span class="pre">ArgInfo.locals</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgInfo.varargs"><code class="docutils literal notranslate"><span class="pre">ArgInfo.varargs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ArgSpec"><code class="docutils literal notranslate"><span class="pre">ArgSpec</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgSpec.args"><code class="docutils literal notranslate"><span class="pre">ArgSpec.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgSpec.defaults"><code class="docutils literal notranslate"><span class="pre">ArgSpec.defaults</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgSpec.keywords"><code class="docutils literal notranslate"><span class="pre">ArgSpec.keywords</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ArgSpec.varargs"><code class="docutils literal notranslate"><span class="pre">ArgSpec.varargs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.Arguments"><code class="docutils literal notranslate"><span class="pre">Arguments</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Arguments.args"><code class="docutils literal notranslate"><span class="pre">Arguments.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Arguments.varargs"><code class="docutils literal notranslate"><span class="pre">Arguments.varargs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Arguments.varkw"><code class="docutils literal notranslate"><span class="pre">Arguments.varkw</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.Attribute"><code class="docutils literal notranslate"><span class="pre">Attribute</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Attribute.defining_class"><code class="docutils literal notranslate"><span class="pre">Attribute.defining_class</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Attribute.kind"><code class="docutils literal notranslate"><span class="pre">Attribute.kind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Attribute.name"><code class="docutils literal notranslate"><span class="pre">Attribute.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Attribute.object"><code class="docutils literal notranslate"><span class="pre">Attribute.object</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.BlockFinder"><code class="docutils literal notranslate"><span class="pre">BlockFinder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.BoundArguments"><code class="docutils literal notranslate"><span class="pre">BoundArguments</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.BoundArguments.apply_defaults"><code class="docutils literal notranslate"><span class="pre">BoundArguments.apply_defaults()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ClassFoundException"><code class="docutils literal notranslate"><span class="pre">ClassFoundException</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ClosureVars"><code class="docutils literal notranslate"><span class="pre">ClosureVars</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ClosureVars.builtins"><code class="docutils literal notranslate"><span class="pre">ClosureVars.builtins</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ClosureVars.globals"><code class="docutils literal notranslate"><span class="pre">ClosureVars.globals</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ClosureVars.nonlocals"><code class="docutils literal notranslate"><span class="pre">ClosureVars.nonlocals</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.ClosureVars.unbound"><code class="docutils literal notranslate"><span class="pre">ClosureVars.unbound</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.EndOfBlock"><code class="docutils literal notranslate"><span class="pre">EndOfBlock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.FrameInfo"><code class="docutils literal notranslate"><span class="pre">FrameInfo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FrameInfo.code_context"><code class="docutils literal notranslate"><span class="pre">FrameInfo.code_context</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FrameInfo.filename"><code class="docutils literal notranslate"><span class="pre">FrameInfo.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FrameInfo.frame"><code class="docutils literal notranslate"><span class="pre">FrameInfo.frame</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FrameInfo.function"><code class="docutils literal notranslate"><span class="pre">FrameInfo.function</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FrameInfo.index"><code class="docutils literal notranslate"><span class="pre">FrameInfo.index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FrameInfo.lineno"><code class="docutils literal notranslate"><span class="pre">FrameInfo.lineno</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.FullArgSpec"><code class="docutils literal notranslate"><span class="pre">FullArgSpec</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.annotations"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.annotations</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.args"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.defaults"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.defaults</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.kwonlyargs"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.kwonlyargs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.kwonlydefaults"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.kwonlydefaults</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.varargs"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.varargs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.FullArgSpec.varkw"><code class="docutils literal notranslate"><span class="pre">FullArgSpec.varkw</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.Parameter"><code class="docutils literal notranslate"><span class="pre">Parameter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Parameter.empty"><code class="docutils literal notranslate"><span class="pre">Parameter.empty</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Parameter.replace"><code class="docutils literal notranslate"><span class="pre">Parameter.replace()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.Signature"><code class="docutils literal notranslate"><span class="pre">Signature</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.bind"><code class="docutils literal notranslate"><span class="pre">Signature.bind()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.bind_partial"><code class="docutils literal notranslate"><span class="pre">Signature.bind_partial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.empty"><code class="docutils literal notranslate"><span class="pre">Signature.empty</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.from_builtin"><code class="docutils literal notranslate"><span class="pre">Signature.from_builtin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.from_callable"><code class="docutils literal notranslate"><span class="pre">Signature.from_callable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.from_function"><code class="docutils literal notranslate"><span class="pre">Signature.from_function()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Signature.replace"><code class="docutils literal notranslate"><span class="pre">Signature.replace()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.Traceback"><code class="docutils literal notranslate"><span class="pre">Traceback</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Traceback.code_context"><code class="docutils literal notranslate"><span class="pre">Traceback.code_context</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Traceback.filename"><code class="docutils literal notranslate"><span class="pre">Traceback.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Traceback.function"><code class="docutils literal notranslate"><span class="pre">Traceback.function</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Traceback.index"><code class="docutils literal notranslate"><span class="pre">Traceback.index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect.Traceback.lineno"><code class="docutils literal notranslate"><span class="pre">Traceback.lineno</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.classify_class_attrs"><code class="docutils literal notranslate"><span class="pre">classify_class_attrs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.cleandoc"><code class="docutils literal notranslate"><span class="pre">cleandoc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.currentframe"><code class="docutils literal notranslate"><span class="pre">currentframe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.findsource"><code class="docutils literal notranslate"><span class="pre">findsource()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.formatargspec"><code class="docutils literal notranslate"><span class="pre">formatargspec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.formatargvalues"><code class="docutils literal notranslate"><span class="pre">formatargvalues()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getabsfile"><code class="docutils literal notranslate"><span class="pre">getabsfile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getargs"><code class="docutils literal notranslate"><span class="pre">getargs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getargspec"><code class="docutils literal notranslate"><span class="pre">getargspec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getargvalues"><code class="docutils literal notranslate"><span class="pre">getargvalues()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getattr_static"><code class="docutils literal notranslate"><span class="pre">getattr_static()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getblock"><code class="docutils literal notranslate"><span class="pre">getblock()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getcallargs"><code class="docutils literal notranslate"><span class="pre">getcallargs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getclasstree"><code class="docutils literal notranslate"><span class="pre">getclasstree()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getclosurevars"><code class="docutils literal notranslate"><span class="pre">getclosurevars()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getcomments"><code class="docutils literal notranslate"><span class="pre">getcomments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getcoroutinelocals"><code class="docutils literal notranslate"><span class="pre">getcoroutinelocals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getcoroutinestate"><code class="docutils literal notranslate"><span class="pre">getcoroutinestate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getdoc"><code class="docutils literal notranslate"><span class="pre">getdoc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getfile"><code class="docutils literal notranslate"><span class="pre">getfile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getframeinfo"><code class="docutils literal notranslate"><span class="pre">getframeinfo()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getfullargspec"><code class="docutils literal notranslate"><span class="pre">getfullargspec()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getgeneratorlocals"><code class="docutils literal notranslate"><span class="pre">getgeneratorlocals()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getgeneratorstate"><code class="docutils literal notranslate"><span class="pre">getgeneratorstate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getinnerframes"><code class="docutils literal notranslate"><span class="pre">getinnerframes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getlineno"><code class="docutils literal notranslate"><span class="pre">getlineno()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getmembers"><code class="docutils literal notranslate"><span class="pre">getmembers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getmodule"><code class="docutils literal notranslate"><span class="pre">getmodule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getmodulename"><code class="docutils literal notranslate"><span class="pre">getmodulename()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getmro"><code class="docutils literal notranslate"><span class="pre">getmro()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getouterframes"><code class="docutils literal notranslate"><span class="pre">getouterframes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getsource"><code class="docutils literal notranslate"><span class="pre">getsource()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getsourcefile"><code class="docutils literal notranslate"><span class="pre">getsourcefile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.getsourcelines"><code class="docutils literal notranslate"><span class="pre">getsourcelines()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.indentsize"><code class="docutils literal notranslate"><span class="pre">indentsize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isabstract"><code class="docutils literal notranslate"><span class="pre">isabstract()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isasyncgen"><code class="docutils literal notranslate"><span class="pre">isasyncgen()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isasyncgenfunction"><code class="docutils literal notranslate"><span class="pre">isasyncgenfunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isawaitable"><code class="docutils literal notranslate"><span class="pre">isawaitable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isbuiltin"><code class="docutils literal notranslate"><span class="pre">isbuiltin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isclass"><code class="docutils literal notranslate"><span class="pre">isclass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.iscode"><code class="docutils literal notranslate"><span class="pre">iscode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.iscoroutine"><code class="docutils literal notranslate"><span class="pre">iscoroutine()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.iscoroutinefunction"><code class="docutils literal notranslate"><span class="pre">iscoroutinefunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isdatadescriptor"><code class="docutils literal notranslate"><span class="pre">isdatadescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isframe"><code class="docutils literal notranslate"><span class="pre">isframe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isfunction"><code class="docutils literal notranslate"><span class="pre">isfunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isgenerator"><code class="docutils literal notranslate"><span class="pre">isgenerator()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isgeneratorfunction"><code class="docutils literal notranslate"><span class="pre">isgeneratorfunction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isgetsetdescriptor"><code class="docutils literal notranslate"><span class="pre">isgetsetdescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ismemberdescriptor"><code class="docutils literal notranslate"><span class="pre">ismemberdescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ismethod"><code class="docutils literal notranslate"><span class="pre">ismethod()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ismethoddescriptor"><code class="docutils literal notranslate"><span class="pre">ismethoddescriptor()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.ismodule"><code class="docutils literal notranslate"><span class="pre">ismodule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.isroutine"><code class="docutils literal notranslate"><span class="pre">isroutine()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.istraceback"><code class="docutils literal notranslate"><span class="pre">istraceback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.signature"><code class="docutils literal notranslate"><span class="pre">signature()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.stack"><code class="docutils literal notranslate"><span class="pre">stack()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.trace"><code class="docutils literal notranslate"><span class="pre">trace()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.unwrap"><code class="docutils literal notranslate"><span class="pre">unwrap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspect.walktree"><code class="docutils literal notranslate"><span class="pre">walktree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="predict.html">Prediction Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualise.html">Visualisation Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">JETDNN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Inspection Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/inspect.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-inspection-functions">
+<span id="data-inspection"></span><h1>Data Inspection Functions<a class="headerlink" href="#data-inspection-functions" title="Link to this heading"></a></h1>
+<p>Functions to inspect data for use in pedestal prediction Deep Neural Networks.</p>
+<p id="module-inspect">Get useful information from live Python objects.</p>
+<p>This module encapsulates the interface provided by the internal special
+attributes (co_*, im_*, tb_*, etc.) in a friendlier fashion.
+It also provides some help for examining source code and class layout.</p>
+<p>Here are some of the useful functions provided by this module:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>ismodule(), isclass(), ismethod(), isfunction(), isgeneratorfunction(),</dt><dd><p>isgenerator(), istraceback(), isframe(), iscode(), isbuiltin(),
+isroutine() - check object types</p>
+</dd>
+</dl>
+<p>getmembers() - get members of an object that satisfy a given condition</p>
+<p>getfile(), getsourcefile(), getsource() - find an object’s source code
+getdoc(), getcomments() - get documentation on an object
+getmodule() - determine the module that an object came from
+getclasstree() - arrange classes so as to represent their hierarchy</p>
+<p>getargvalues(), getcallargs() - get info about function arguments
+getfullargspec() - same, with support for Python 3 features
+formatargvalues() - format an argument spec
+getouterframes(), getinnerframes() - get info about frames
+currentframe() - get the current stack frame
+stack(), trace() - get info about frames on the stack or in a traceback</p>
+<p>signature() - get a Signature object for the callable</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.ArgInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ArgInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ArgInfo" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgInfo.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#inspect.ArgInfo.args" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgInfo.keywords">
+<span class="sig-name descname"><span class="pre">keywords</span></span><a class="headerlink" href="#inspect.ArgInfo.keywords" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgInfo.locals">
+<span class="sig-name descname"><span class="pre">locals</span></span><a class="headerlink" href="#inspect.ArgInfo.locals" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgInfo.varargs">
+<span class="sig-name descname"><span class="pre">varargs</span></span><a class="headerlink" href="#inspect.ArgInfo.varargs" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.ArgSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ArgSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ArgSpec" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgSpec.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#inspect.ArgSpec.args" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgSpec.defaults">
+<span class="sig-name descname"><span class="pre">defaults</span></span><a class="headerlink" href="#inspect.ArgSpec.defaults" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgSpec.keywords">
+<span class="sig-name descname"><span class="pre">keywords</span></span><a class="headerlink" href="#inspect.ArgSpec.keywords" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ArgSpec.varargs">
+<span class="sig-name descname"><span class="pre">varargs</span></span><a class="headerlink" href="#inspect.ArgSpec.varargs" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.Arguments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">Arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varkw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Arguments" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Arguments.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#inspect.Arguments.args" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Arguments.varargs">
+<span class="sig-name descname"><span class="pre">varargs</span></span><a class="headerlink" href="#inspect.Arguments.varargs" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Arguments.varkw">
+<span class="sig-name descname"><span class="pre">varkw</span></span><a class="headerlink" href="#inspect.Arguments.varkw" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.Attribute">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">Attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defining_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Attribute" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Attribute.defining_class">
+<span class="sig-name descname"><span class="pre">defining_class</span></span><a class="headerlink" href="#inspect.Attribute.defining_class" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Attribute.kind">
+<span class="sig-name descname"><span class="pre">kind</span></span><a class="headerlink" href="#inspect.Attribute.kind" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Attribute.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#inspect.Attribute.name" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Attribute.object">
+<span class="sig-name descname"><span class="pre">object</span></span><a class="headerlink" href="#inspect.Attribute.object" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.BlockFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">BlockFinder</span></span><a class="headerlink" href="#inspect.BlockFinder" title="Link to this definition"></a></dt>
+<dd><p>Provide a tokeneater() method to detect the end of a code block.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.BoundArguments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">BoundArguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.BoundArguments" title="Link to this definition"></a></dt>
+<dd><p>Result of <cite>Signature.bind</cite> call.  Holds the mapping of arguments
+to the function’s parameters.</p>
+<p>Has the following public attributes:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>arguments<span class="classifier">dict</span></dt><dd><p>An ordered mutable mapping of parameters’ names to arguments’ values.
+Does not contain arguments’ default values.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>signature<span class="classifier">Signature</span></dt><dd><p>The Signature object that created this instance.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>args<span class="classifier">tuple</span></dt><dd><p>Tuple of positional arguments values.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>kwargs<span class="classifier">dict</span></dt><dd><p>Dict of keyword arguments values.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.BoundArguments.apply_defaults">
+<span class="sig-name descname"><span class="pre">apply_defaults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#inspect.BoundArguments.apply_defaults" title="Link to this definition"></a></dt>
+<dd><p>Set default values for missing arguments.</p>
+<p>For variable-positional arguments (<a href="#id1"><span class="problematic" id="id2">*</span></a>args) the default is an
+empty tuple.</p>
+<p>For variable-keyword arguments (<a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs) the default is an
+empty dict.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="inspect.ClassFoundException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ClassFoundException</span></span><a class="headerlink" href="#inspect.ClassFoundException" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.ClosureVars">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ClosureVars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nonlocals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">globals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">builtins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbound</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ClosureVars" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ClosureVars.builtins">
+<span class="sig-name descname"><span class="pre">builtins</span></span><a class="headerlink" href="#inspect.ClosureVars.builtins" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ClosureVars.globals">
+<span class="sig-name descname"><span class="pre">globals</span></span><a class="headerlink" href="#inspect.ClosureVars.globals" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ClosureVars.nonlocals">
+<span class="sig-name descname"><span class="pre">nonlocals</span></span><a class="headerlink" href="#inspect.ClosureVars.nonlocals" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.ClosureVars.unbound">
+<span class="sig-name descname"><span class="pre">unbound</span></span><a class="headerlink" href="#inspect.ClosureVars.unbound" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="inspect.EndOfBlock">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">EndOfBlock</span></span><a class="headerlink" href="#inspect.EndOfBlock" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.FrameInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">FrameInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.FrameInfo" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FrameInfo.code_context">
+<span class="sig-name descname"><span class="pre">code_context</span></span><a class="headerlink" href="#inspect.FrameInfo.code_context" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FrameInfo.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><a class="headerlink" href="#inspect.FrameInfo.filename" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FrameInfo.frame">
+<span class="sig-name descname"><span class="pre">frame</span></span><a class="headerlink" href="#inspect.FrameInfo.frame" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FrameInfo.function">
+<span class="sig-name descname"><span class="pre">function</span></span><a class="headerlink" href="#inspect.FrameInfo.function" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FrameInfo.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#inspect.FrameInfo.index" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FrameInfo.lineno">
+<span class="sig-name descname"><span class="pre">lineno</span></span><a class="headerlink" href="#inspect.FrameInfo.lineno" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.FullArgSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">FullArgSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varkw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwonlyargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwonlydefaults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.FullArgSpec" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.annotations">
+<span class="sig-name descname"><span class="pre">annotations</span></span><a class="headerlink" href="#inspect.FullArgSpec.annotations" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#inspect.FullArgSpec.args" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.defaults">
+<span class="sig-name descname"><span class="pre">defaults</span></span><a class="headerlink" href="#inspect.FullArgSpec.defaults" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.kwonlyargs">
+<span class="sig-name descname"><span class="pre">kwonlyargs</span></span><a class="headerlink" href="#inspect.FullArgSpec.kwonlyargs" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.kwonlydefaults">
+<span class="sig-name descname"><span class="pre">kwonlydefaults</span></span><a class="headerlink" href="#inspect.FullArgSpec.kwonlydefaults" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.varargs">
+<span class="sig-name descname"><span class="pre">varargs</span></span><a class="headerlink" href="#inspect.FullArgSpec.varargs" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.FullArgSpec.varkw">
+<span class="sig-name descname"><span class="pre">varkw</span></span><a class="headerlink" href="#inspect.FullArgSpec.varkw" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.Parameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Parameter" title="Link to this definition"></a></dt>
+<dd><p>Represents a parameter in a function signature.</p>
+<p>Has the following public attributes:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>name<span class="classifier">str</span></dt><dd><p>The name of the parameter as a string.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>default<span class="classifier">object</span></dt><dd><p>The default value for the parameter if specified.  If the
+parameter has no default value, this attribute is set to
+<cite>Parameter.empty</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>annotation</dt><dd><p>The annotation for the parameter if specified.  If the
+parameter has no annotation, this attribute is set to
+<cite>Parameter.empty</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>kind<span class="classifier">str</span></dt><dd><p>Describes how argument values are bound to the parameter.
+Possible values: <cite>Parameter.POSITIONAL_ONLY</cite>,
+<cite>Parameter.POSITIONAL_OR_KEYWORD</cite>, <cite>Parameter.VAR_POSITIONAL</cite>,
+<cite>Parameter.KEYWORD_ONLY</cite>, <cite>Parameter.VAR_KEYWORD</cite>.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Parameter.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><a class="headerlink" href="#inspect.Parameter.empty" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_empty</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Parameter.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name=&lt;class</span> <span class="pre">'inspect._void'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind=&lt;class</span> <span class="pre">'inspect._void'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation=&lt;class</span> <span class="pre">'inspect._void'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'inspect._void'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Parameter.replace" title="Link to this definition"></a></dt>
+<dd><p>Creates a customized copy of the Parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.Signature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">Signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_annotation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">__validate_parameters__</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature" title="Link to this definition"></a></dt>
+<dd><p>A Signature object represents the overall signature of a function.
+It stores a Parameter object for each parameter accepted by the
+function, as well as information specific to the function itself.</p>
+<p>A Signature object has the following public attributes and methods:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>parameters<span class="classifier">OrderedDict</span></dt><dd><p>An ordered mapping of parameters’ names to the corresponding
+Parameter objects (keyword-only arguments are in the same order
+as listed in <cite>code.co_varnames</cite>).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>return_annotation<span class="classifier">object</span></dt><dd><p>The annotation for the return type of the function if specified.
+If the function has no annotation for its return type, this
+attribute is set to <cite>Signature.empty</cite>.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bind(<a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><p>Creates a mapping from positional and keyword arguments to
+parameters.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bind_partial(<a href="#id9"><span class="problematic" id="id10">*</span></a>args, <a href="#id11"><span class="problematic" id="id12">**</span></a>kwargs) -&gt; BoundArguments</dt><dd><p>Creates a partial mapping from positional and keyword arguments
+to parameters (simulating ‘functools.partial’ behavior.)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Signature.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature.bind" title="Link to this definition"></a></dt>
+<dd><p>Get a BoundArguments object, that maps the passed <cite>args</cite>
+and <cite>kwargs</cite> to the function’s signature.  Raises <cite>TypeError</cite>
+if the passed arguments can not be bound.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Signature.bind_partial">
+<span class="sig-name descname"><span class="pre">bind_partial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature.bind_partial" title="Link to this definition"></a></dt>
+<dd><p>Get a BoundArguments object, that partially maps the
+passed <cite>args</cite> and <cite>kwargs</cite> to the function’s signature.
+Raises <cite>TypeError</cite> if the passed arguments can not be bound.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Signature.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><a class="headerlink" href="#inspect.Signature.empty" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_empty</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Signature.from_builtin">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_builtin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature.from_builtin" title="Link to this definition"></a></dt>
+<dd><p>Constructs Signature for the given builtin function.</p>
+<p>Deprecated since Python 3.5, use <cite>Signature.from_callable()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Signature.from_callable">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow_wrapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature.from_callable" title="Link to this definition"></a></dt>
+<dd><p>Constructs Signature for the given callable object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Signature.from_function">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature.from_function" title="Link to this definition"></a></dt>
+<dd><p>Constructs Signature for the given python function.</p>
+<p>Deprecated since Python 3.5, use <cite>Signature.from_callable()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inspect.Signature.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters=&lt;class</span> <span class="pre">'inspect._void'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_annotation=&lt;class</span> <span class="pre">'inspect._void'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Signature.replace" title="Link to this definition"></a></dt>
+<dd><p>Creates a customized copy of the Signature.
+Pass ‘parameters’ and/or ‘return_annotation’ arguments
+to override them in the new copy.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inspect.Traceback">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">Traceback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lineno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code_context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.Traceback" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Traceback.code_context">
+<span class="sig-name descname"><span class="pre">code_context</span></span><a class="headerlink" href="#inspect.Traceback.code_context" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Traceback.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><a class="headerlink" href="#inspect.Traceback.filename" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Traceback.function">
+<span class="sig-name descname"><span class="pre">function</span></span><a class="headerlink" href="#inspect.Traceback.function" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Traceback.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#inspect.Traceback.index" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inspect.Traceback.lineno">
+<span class="sig-name descname"><span class="pre">lineno</span></span><a class="headerlink" href="#inspect.Traceback.lineno" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.classify_class_attrs">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">classify_class_attrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.classify_class_attrs" title="Link to this definition"></a></dt>
+<dd><p>Return list of attribute-descriptor tuples.</p>
+<p>For each name in dir(cls), the return list contains a 4-tuple
+with these elements:</p>
+<blockquote>
+<div><ol class="arabic simple" start="0">
+<li><p>The name (a string).</p></li>
+<li><dl class="simple">
+<dt>The kind of attribute this is, one of these strings:</dt><dd><p>‘class method’    created via classmethod()
+‘static method’   created via staticmethod()
+‘property’        created via property()
+‘method’          any other flavor of method or descriptor
+‘data’            not a method</p>
+</dd>
+</dl>
+</li>
+<li><p>The class which defined this attribute (a class).</p></li>
+<li><p>The object as obtained by calling getattr; if this fails, or if the
+resulting object does not live anywhere in the class’ mro (including
+metaclasses) then the object is looked up in the defining class’s
+dict (found by walking the mro).</p></li>
+</ol>
+</div></blockquote>
+<p>If one of the items in dir(cls) is stored in the metaclass it will now
+be discovered and not have None be listed as the class in which it was
+defined.  Any items whose home class cannot be discovered are skipped.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.cleandoc">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">cleandoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.cleandoc" title="Link to this definition"></a></dt>
+<dd><p>Clean up indentation from docstrings.</p>
+<p>Any whitespace that can be uniformly removed from the second line
+onwards is removed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.currentframe">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">currentframe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#inspect.currentframe" title="Link to this definition"></a></dt>
+<dd><p>Return the frame of the caller or None if this is not possible.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.findsource">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">findsource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.findsource" title="Link to this definition"></a></dt>
+<dd><p>Return the entire source file and starting line number for an object.</p>
+<p>The argument may be a module, class, method, function, traceback, frame,
+or code object.  The source code is returned as a list of all the lines
+in the file and the line number indexes a line in that list.  An OSError
+is raised if the source code cannot be retrieved.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.formatargspec">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">formatargspec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varkw=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwonlyargs=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwonlydefaults={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatarg=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatvarargs=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatvarkw=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatvalue=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatreturns=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatannotation=&lt;function</span> <span class="pre">formatannotation&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.formatargspec" title="Link to this definition"></a></dt>
+<dd><p>Format an argument spec from the values returned by getfullargspec.</p>
+<p>The first seven arguments are (args, varargs, varkw, defaults,
+kwonlyargs, kwonlydefaults, annotations).  The other five arguments
+are the corresponding optional formatting functions that are called to
+turn names and values into strings.  The last argument is an optional
+function to format the sequence of arguments.</p>
+<p>Deprecated since Python 3.5: use the <cite>signature</cite> function and <cite>Signature</cite>
+objects.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.formatargvalues">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">formatargvalues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varkw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatarg=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatvarargs=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatvarkw=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formatvalue=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.formatargvalues" title="Link to this definition"></a></dt>
+<dd><p>Format an argument spec from the 4 values returned by getargvalues.</p>
+<p>The first four arguments are (args, varargs, varkw, locals).  The
+next four arguments are the corresponding optional formatting functions
+that are called to turn names and values into strings.  The ninth
+argument is an optional function to format the sequence of arguments.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getabsfile">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getabsfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getabsfile" title="Link to this definition"></a></dt>
+<dd><p>Return an absolute path to the source or compiled file for an object.</p>
+<p>The idea is for each object to have a unique origin, so this routine
+normalizes the result as much as possible.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getargs">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">co</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getargs" title="Link to this definition"></a></dt>
+<dd><p>Get information about the arguments accepted by a code object.</p>
+<p>Three things are returned: (args, varargs, varkw), where
+‘args’ is the list of argument names. Keyword-only arguments are
+appended. ‘varargs’ and ‘varkw’ are the names of the * and **
+arguments or None.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getargspec">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getargspec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getargspec" title="Link to this definition"></a></dt>
+<dd><p>Get the names and default values of a function’s parameters.</p>
+<p>A tuple of four things is returned: (args, varargs, keywords, defaults).
+‘args’ is a list of the argument names, including keyword-only argument names.
+‘varargs’ and ‘keywords’ are the names of the * and ** parameters or None.
+‘defaults’ is an n-tuple of the default values of the last n parameters.</p>
+<p>This function is deprecated, as it does not support annotations or
+keyword-only parameters and will raise ValueError if either is present
+on the supplied callable.</p>
+<p>For a more structured introspection API, use inspect.signature() instead.</p>
+<p>Alternatively, use getfullargspec() for an API with a similar namedtuple
+based interface, but full support for annotations and keyword-only
+parameters.</p>
+<p>Deprecated since Python 3.5, use <cite>inspect.getfullargspec()</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getargvalues">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getargvalues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getargvalues" title="Link to this definition"></a></dt>
+<dd><p>Get information about arguments passed into a particular frame.</p>
+<p>A tuple of four things is returned: (args, varargs, varkw, locals).
+‘args’ is a list of the argument names.
+‘varargs’ and ‘varkw’ are the names of the * and ** arguments or None.
+‘locals’ is the locals dictionary of the given frame.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getattr_static">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getattr_static</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;object</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getattr_static" title="Link to this definition"></a></dt>
+<dd><p>Retrieve attributes without triggering dynamic lookup via the
+descriptor protocol,  __getattr__ or __getattribute__.</p>
+<p>Note: this function may not be able to retrieve all attributes
+that getattr can fetch (like dynamically created attributes)
+and may find attributes that getattr can’t (like descriptors
+that raise AttributeError). It can also return descriptor objects
+instead of instance members in some cases. See the
+documentation for details.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getblock">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getblock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getblock" title="Link to this definition"></a></dt>
+<dd><p>Extract the block of code at the top of the given list of lines.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getcallargs">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getcallargs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">positional</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">named</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getcallargs" title="Link to this definition"></a></dt>
+<dd><p>Get the mapping of arguments to values.</p>
+<p>A dict is returned, with keys the function argument names (including the
+names of the * and ** arguments, if any), and values the respective bound
+values from ‘positional’ and ‘named’.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getclasstree">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getclasstree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getclasstree" title="Link to this definition"></a></dt>
+<dd><p>Arrange the given list of classes into a hierarchy of nested lists.</p>
+<p>Where a nested list appears, it contains classes derived from the class
+whose entry immediately precedes the list.  Each entry is a 2-tuple
+containing a class and a tuple of its base classes.  If the ‘unique’
+argument is true, exactly one entry appears in the returned structure
+for each class in the given list.  Otherwise, classes using multiple
+inheritance and their descendants will appear multiple times.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getclosurevars">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getclosurevars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getclosurevars" title="Link to this definition"></a></dt>
+<dd><p>Get the mapping of free variables to their current values.</p>
+<p>Returns a named tuple of dicts mapping the current nonlocal, global
+and builtin references as seen by the body of the function. A final
+set of unbound names that could not be resolved is also provided.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getcomments">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getcomments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getcomments" title="Link to this definition"></a></dt>
+<dd><p>Get lines of comments immediately preceding an object’s source code.</p>
+<p>Returns None when source can’t be found.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getcoroutinelocals">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getcoroutinelocals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coroutine</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getcoroutinelocals" title="Link to this definition"></a></dt>
+<dd><p>Get the mapping of coroutine local variables to their current values.</p>
+<p>A dict is returned, with the keys the local variable names and values the
+bound values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getcoroutinestate">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getcoroutinestate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coroutine</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getcoroutinestate" title="Link to this definition"></a></dt>
+<dd><p>Get current state of a coroutine object.</p>
+<dl class="simple">
+<dt>Possible states are:</dt><dd><p>CORO_CREATED: Waiting to start execution.
+CORO_RUNNING: Currently being executed by the interpreter.
+CORO_SUSPENDED: Currently suspended at an await expression.
+CORO_CLOSED: Execution has completed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getdoc">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getdoc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getdoc" title="Link to this definition"></a></dt>
+<dd><p>Get the documentation string for an object.</p>
+<p>All tabs are expanded to spaces.  To clean up docstrings that are
+indented to line up with blocks of code, any whitespace than can be
+uniformly removed from the second line onwards is removed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getfile">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getfile" title="Link to this definition"></a></dt>
+<dd><p>Work out which source or compiled file an object was defined in.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getframeinfo">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getframeinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getframeinfo" title="Link to this definition"></a></dt>
+<dd><p>Get information about a frame or traceback object.</p>
+<p>A tuple of five things is returned: the filename, the line number of
+the current line, the function name, a list of lines of context from
+the source code, and the index of the current line within that list.
+The optional second argument specifies the number of lines of context
+to return, which are centered around the current line.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getfullargspec">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getfullargspec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getfullargspec" title="Link to this definition"></a></dt>
+<dd><p>Get the names and default values of a callable object’s parameters.</p>
+<p>A tuple of seven things is returned:
+(args, varargs, varkw, defaults, kwonlyargs, kwonlydefaults, annotations).
+‘args’ is a list of the parameter names.
+‘varargs’ and ‘varkw’ are the names of the * and ** parameters or None.
+‘defaults’ is an n-tuple of the default values of the last n parameters.
+‘kwonlyargs’ is a list of keyword-only parameter names.
+‘kwonlydefaults’ is a dictionary mapping names from kwonlyargs to defaults.
+‘annotations’ is a dictionary mapping parameter names to annotations.</p>
+<dl class="simple">
+<dt>Notable differences from inspect.signature():</dt><dd><ul class="simple">
+<li><p>the “self” parameter is always reported, even for bound methods</p></li>
+<li><p>wrapper chains defined by __wrapped__ <em>not</em> unwrapped automatically</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getgeneratorlocals">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getgeneratorlocals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getgeneratorlocals" title="Link to this definition"></a></dt>
+<dd><p>Get the mapping of generator local variables to their current values.</p>
+<p>A dict is returned, with the keys the local variable names and values the
+bound values.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getgeneratorstate">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getgeneratorstate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getgeneratorstate" title="Link to this definition"></a></dt>
+<dd><p>Get current state of a generator-iterator.</p>
+<dl class="simple">
+<dt>Possible states are:</dt><dd><p>GEN_CREATED: Waiting to start execution.
+GEN_RUNNING: Currently being executed by the interpreter.
+GEN_SUSPENDED: Currently suspended at a yield expression.
+GEN_CLOSED: Execution has completed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getinnerframes">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getinnerframes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getinnerframes" title="Link to this definition"></a></dt>
+<dd><p>Get a list of records for a traceback’s frame and all lower frames.</p>
+<p>Each record contains a frame object, filename, line number, function
+name, a list of lines of context, and index within the context.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getlineno">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getlineno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getlineno" title="Link to this definition"></a></dt>
+<dd><p>Get the line number from a frame object, allowing for optimization.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getmembers">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getmembers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getmembers" title="Link to this definition"></a></dt>
+<dd><p>Return all members of an object as (name, value) pairs sorted by name.
+Optionally, only return members that satisfy a given predicate.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getmodule">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getmodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getmodule" title="Link to this definition"></a></dt>
+<dd><p>Return the module an object was defined in, or None if not found.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getmodulename">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getmodulename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getmodulename" title="Link to this definition"></a></dt>
+<dd><p>Return the module name for a given file, or None.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getmro">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getmro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getmro" title="Link to this definition"></a></dt>
+<dd><p>Return tuple of base classes (including cls) in method resolution order.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getouterframes">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getouterframes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getouterframes" title="Link to this definition"></a></dt>
+<dd><p>Get a list of records for a frame and all higher (calling) frames.</p>
+<p>Each record contains a frame object, filename, line number, function
+name, a list of lines of context, and index within the context.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getsource">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getsource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getsource" title="Link to this definition"></a></dt>
+<dd><p>Return the text of the source code for an object.</p>
+<p>The argument may be a module, class, method, function, traceback, frame,
+or code object.  The source code is returned as a single string.  An
+OSError is raised if the source code cannot be retrieved.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getsourcefile">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getsourcefile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getsourcefile" title="Link to this definition"></a></dt>
+<dd><p>Return the filename that can be used to locate an object’s source.
+Return None if no way can be identified to get the source.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.getsourcelines">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">getsourcelines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.getsourcelines" title="Link to this definition"></a></dt>
+<dd><p>Return a list of source lines and starting line number for an object.</p>
+<p>The argument may be a module, class, method, function, traceback, frame,
+or code object.  The source code is returned as a list of the lines
+corresponding to the object and the line number indicates where in the
+original source file the first line of code was found.  An OSError is
+raised if the source code cannot be retrieved.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.indentsize">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">indentsize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.indentsize" title="Link to this definition"></a></dt>
+<dd><p>Return the indent size, in spaces, at the start of a line of text.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isabstract">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isabstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isabstract" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is an abstract base class (ABC).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isasyncgen">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isasyncgen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isasyncgen" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is an asynchronous generator.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isasyncgenfunction">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isasyncgenfunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isasyncgenfunction" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is an asynchronous generator function.</p>
+<p>Asynchronous generator functions are defined with “async def”
+syntax and have “yield” expressions in their body.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isawaitable">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isawaitable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isawaitable" title="Link to this definition"></a></dt>
+<dd><p>Return true if object can be passed to an <code class="docutils literal notranslate"><span class="pre">await</span></code> expression.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isbuiltin">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isbuiltin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isbuiltin" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a built-in function or method.</p>
+<dl class="simple">
+<dt>Built-in functions and methods provide these attributes:</dt><dd><p>__doc__         documentation string
+__name__        original name of this function or method
+__self__        instance to which a method is bound, or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isclass">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isclass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isclass" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a class.</p>
+<dl class="simple">
+<dt>Class objects provide these attributes:</dt><dd><p>__doc__         documentation string
+__module__      name of module in which this class was defined</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.iscode">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">iscode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.iscode" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a code object.</p>
+<dl>
+<dt>Code objects provide these attributes:</dt><dd><dl class="simple">
+<dt>co_argcount         number of arguments (not including <em>, *</em> args</dt><dd><p>or keyword only arguments)</p>
+</dd>
+</dl>
+<p>co_code             string of raw compiled bytecode
+co_cellvars         tuple of names of cell variables
+co_consts           tuple of constants used in the bytecode
+co_filename         name of file in which this code object was created
+co_firstlineno      number of first line in Python source code
+co_flags            bitmap: 1=optimized | 2=newlocals | 4=*arg | 8=**arg</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">16=nested | 32=generator | 64=nofree | 128=coroutine</div>
+<div class="line">256=iterable_coroutine | 512=async_generator</div>
+</div>
+</div></blockquote>
+<p>co_freevars         tuple of names of free variables
+co_posonlyargcount  number of positional only arguments
+co_kwonlyargcount   number of keyword only arguments (not including ** arg)
+co_lnotab           encoded mapping of line numbers to bytecode indices
+co_name             name with which this code object was defined
+co_names            tuple of names other than arguments and function locals
+co_nlocals          number of local variables
+co_stacksize        virtual machine stack space required
+co_varnames         tuple of names of arguments and local variables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.iscoroutine">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">iscoroutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.iscoroutine" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a coroutine.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.iscoroutinefunction">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">iscoroutinefunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.iscoroutinefunction" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a coroutine function.</p>
+<p>Coroutine functions are defined with “async def” syntax.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isdatadescriptor">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isdatadescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isdatadescriptor" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a data descriptor.</p>
+<p>Data descriptors have a __set__ or a __delete__ attribute.  Examples are
+properties (defined in Python) and getsets and members (defined in C).
+Typically, data descriptors will also have __name__ and __doc__ attributes
+(properties, getsets, and members have both of these attributes), but this
+is not guaranteed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isframe">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isframe" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a frame object.</p>
+<dl class="simple">
+<dt>Frame objects provide these attributes:</dt><dd><p>f_back          next outer frame object (this frame’s caller)
+f_builtins      built-in namespace seen by this frame
+f_code          code object being executed in this frame
+f_globals       global namespace seen by this frame
+f_lasti         index of last attempted instruction in bytecode
+f_lineno        current line number in Python source code
+f_locals        local namespace seen by this frame
+f_trace         tracing function for this frame, or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isfunction">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isfunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isfunction" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a user-defined function.</p>
+<dl class="simple">
+<dt>Function objects provide these attributes:</dt><dd><p>__doc__         documentation string
+__name__        name with which this function was defined
+__code__        code object containing compiled function bytecode
+__defaults__    tuple of any default values for arguments
+__globals__     global namespace in which this function was defined
+__annotations__ dict of parameter annotations
+__kwdefaults__  dict of keyword only parameters with defaults</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isgenerator">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isgenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isgenerator" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a generator.</p>
+<dl>
+<dt>Generator objects provide these attributes:</dt><dd><p>__iter__        defined to support iteration over container
+close           raises a new GeneratorExit exception inside the</p>
+<blockquote>
+<div><p>generator to terminate the iteration</p>
+</div></blockquote>
+<p>gi_code         code object
+gi_frame        frame object or possibly None once the generator has</p>
+<blockquote>
+<div><p>been exhausted</p>
+</div></blockquote>
+<p>gi_running      set to 1 when generator is executing, 0 otherwise
+next            return the next item from the container
+send            resumes the generator and “sends” a value that becomes</p>
+<blockquote>
+<div><p>the result of the current yield-expression</p>
+</div></blockquote>
+<p>throw           used to raise an exception inside the generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isgeneratorfunction">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isgeneratorfunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isgeneratorfunction" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a user-defined generator function.</p>
+<p>Generator function objects provide the same attributes as functions.
+See help(isfunction) for a list of attributes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isgetsetdescriptor">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isgetsetdescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isgetsetdescriptor" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a getset descriptor.</p>
+<p>getset descriptors are specialized descriptors defined in extension
+modules.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.ismemberdescriptor">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ismemberdescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ismemberdescriptor" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a member descriptor.</p>
+<p>Member descriptors are specialized descriptors defined in extension
+modules.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.ismethod">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ismethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ismethod" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is an instance method.</p>
+<dl class="simple">
+<dt>Instance method objects provide these attributes:</dt><dd><p>__doc__         documentation string
+__name__        name with which this method was defined
+__func__        function object containing implementation of method
+__self__        instance to which this method is bound</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.ismethoddescriptor">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ismethoddescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ismethoddescriptor" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a method descriptor.</p>
+<p>But not if ismethod() or isclass() or isfunction() are true.</p>
+<p>This is new in Python 2.2, and, for example, is true of int.__add__.
+An object passing this test has a __get__ attribute but not a __set__
+attribute, but beyond that the set of attributes varies.  __name__ is
+usually sensible, and __doc__ often is.</p>
+<p>Methods implemented via descriptors that also pass one of the other
+tests return false from the ismethoddescriptor() test, simply because
+the other tests promise more – you can, e.g., count on having the
+__func__ attribute (etc) when an object passes ismethod().</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.ismodule">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">ismodule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.ismodule" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a module.</p>
+<dl class="simple">
+<dt>Module objects provide these attributes:</dt><dd><p>__cached__      pathname to byte compiled file
+__doc__         documentation string
+__file__        filename (missing for built-in modules)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.isroutine">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">isroutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.isroutine" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is any kind of function or method.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.istraceback">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">istraceback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.istraceback" title="Link to this definition"></a></dt>
+<dd><p>Return true if the object is a traceback.</p>
+<dl class="simple">
+<dt>Traceback objects provide these attributes:</dt><dd><p>tb_frame        frame object at this level
+tb_lasti        index of last attempted instruction in bytecode
+tb_lineno       current line number in Python source code
+tb_next         next inner traceback object (called by this level)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.signature">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">follow_wrapped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.signature" title="Link to this definition"></a></dt>
+<dd><p>Get a signature object for the passed callable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.stack">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">stack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.stack" title="Link to this definition"></a></dt>
+<dd><p>Return a list of records for the stack above the caller’s frame.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.trace">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.trace" title="Link to this definition"></a></dt>
+<dd><p>Return a list of records for the stack below the current exception.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.unwrap">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">unwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.unwrap" title="Link to this definition"></a></dt>
+<dd><p>Get the object wrapped by <em>func</em>.</p>
+<p>Follows the chain of <code class="xref py py-attr docutils literal notranslate"><span class="pre">__wrapped__</span></code> attributes returning the last
+object in the chain.</p>
+<p><em>stop</em> is an optional callback accepting an object in the wrapper chain
+as its sole argument that allows the unwrapping to be terminated early if
+the callback returns a true value. If the callback never returns a true
+value, the last object in the chain is returned as usual. For example,
+<a class="reference internal" href="#inspect.signature" title="inspect.signature"><code class="xref py py-func docutils literal notranslate"><span class="pre">signature()</span></code></a> uses this to stop unwrapping if any object in the
+chain has a <code class="docutils literal notranslate"><span class="pre">__signature__</span></code> attribute defined.</p>
+<p><code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code> is raised if a cycle is encountered.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inspect.walktree">
+<span class="sig-prename descclassname"><span class="pre">inspect.</span></span><span class="sig-name descname"><span class="pre">walktree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inspect.walktree" title="Link to this definition"></a></dt>
+<dd><p>Recursive helper function for getclasstree().</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to JETDNN’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="predict.html" class="btn btn-neutral float-right" title="Prediction Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, S. Frankel, J. Simpson and E. Solano.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -10,9 +10,9 @@ Welcome to JETDNN's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   inspect.rst
    predict.rst
-
-
+   visualise.rst
 
 Indices and tables
 ==================

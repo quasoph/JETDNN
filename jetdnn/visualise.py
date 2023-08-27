@@ -1,15 +1,24 @@
 import tensorflow
 from tensorflow import keras
 import predict
-from keras.utils.vis_utils import plot_model
+from keras.utils import plot_model
 import matplotlib.pyplot as plt
 import numpy as np
 
 # VISUALISE MODELS
 
 def display_model(model):
+
     """
-    Function for displaying a visualisation of the DNN model used.
+    display_model
+
+    Display a summary and save a Keras plot of a Deep Neural Network model.
+
+    Args:
+        model (Tensorflow Model): Deep Neural Network model build with build_and_test_single.
+    
+    Returns:
+        None
     """
     print(model.summary())
     plot_model(model, to_file='dnn_model_plot.png', show_shapes=True, show_layer_names=True)
@@ -20,8 +29,16 @@ def display_model(model):
 def density_npm_plot(nepeds,delta_nes):
 
     """
-    Plots a Neutral Penetration Model pedestal prediction. Could also be used with real data rather than predictions.
-    Only suitable for density pedestals.
+    density_npm_plot
+
+    Plot up to 10 predicted density pedestals using the Neutral Penetration Model (NPM).
+
+    Args:
+        nepeds (array): list of predicted density pedestal heights from build_and_test_single.
+        delta_nes (array): list of characteristic neutral penetration lengths, from H-mode data.
+
+    Returns:
+        None
     """
 
     C = 2 # set this equal to constant

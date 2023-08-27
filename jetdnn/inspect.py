@@ -1,14 +1,6 @@
-"""
-INSPECT DATA
-"""
-
 import seaborn as sns
 import numpy as np
-from .predict_ped import get_train_test_data
-
-"""
-Functions for plotting and inspecting data. E.g. seaborn pairplot, and if inputs have a certain correlation with the output, the program suggests using them for the DNN.
-"""
+from .predict import get_train_test_data
 
 def plot_params(filename,plot_cols):
 
@@ -16,6 +8,7 @@ def plot_params(filename,plot_cols):
     plot_params
 
     Create a Seaborn pairplot of data, and calculate the correlation coefficients of each subplot to find parameters to input in the DNN.
+    Parameters with a strong correlation will be suggested for use in model building.
 
     Arguments:
         filename (string): name of .dat or .csv file.

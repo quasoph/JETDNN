@@ -14,13 +14,13 @@ def get_train_test_data(dataset):
     """
     get_train_test_data
 
-    Split a chosen dataset randomly into an 80/20 train-test split.
+    Split a chosen dataset randomly into an 80/20 train-test split. Display Numpy shapes of train and test data.
 
     Args:
         dataset (string): filename of csv.
     Returns:
-        array: training data
-        array: test data 
+        array: training data.
+        array: test data.
     """
 
     train_data, test_data = np.split(dataset.sample(frac=1,random_state=42),[int(.8*len(dataset))]) # this works!
@@ -54,9 +54,9 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
         maxoutput (Boolean): optional. Set equal to True to display a more detailed output, useful for debugging.
 
     Returns:
-        array: pedestal height predictions
+        array: pedestal height predictions.
         integer: mean squared error of these predictions.
-        model: trained DNN model.
+        Tensorflow Model: trained DNN model.
 
     """
 
@@ -215,7 +215,7 @@ def predict_single(model,filename,input_cols):
     Predict pedestal heights using a trained DNN created with build_and_test_single.
 
     Args:
-        model (Tensorflow model): trained DNN from build_and_test_single to predict a column with.
+        model (Tensorflow Model): trained DNN from build_and_test_single to predict a column with.
         input_cols (array): input columns to apply the trained model on.
 
     Returns:
