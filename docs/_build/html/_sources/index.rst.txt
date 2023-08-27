@@ -7,10 +7,10 @@ Welcome to JETDNN's documentation!
 ==================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   investigate.rst
+   interpret.rst
    predict.rst
    visualise.rst
 

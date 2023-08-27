@@ -1,6 +1,6 @@
 import seaborn as sns
 import numpy as np
-from .predict import get_train_test_data
+from jetdnn.predict import get_train_test_data # using just .predict gives an error
 
 def plot_params(filename,plot_cols):
 
