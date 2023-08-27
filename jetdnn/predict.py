@@ -9,27 +9,36 @@ from tensorflow.keras import layers
 
 print(tf.__version__)
 
-"""
-    FUTURE IDEAS:
-    - create input for a separate test csv so training and testing data can be two separate files
-    - automatically convert arguments to their required dtype at the start of this function
-    - create warnings for incorrect dtypes etc
-"""
-
 def get_train_test_data(dataset):
+
+    """
+    get_train_test_data
+
+    Split a chosen dataset randomly into an 80/20 train-test split.
+
+    Args:
+        dataset (string): filename of csv.
+    Returns:
+        array: training data
+        array: test data 
+    """
+
     train_data, test_data = np.split(dataset.sample(frac=1,random_state=42),[int(.8*len(dataset))]) # this works!
+    print("Train data shape is: " + str(np.shape(train_data)))
+    print("Test data shape is: " + str(np.shape(test_data)))
     return train_data, test_data
 
 def read_data(csv_name):
     data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
+    print("Column names: " + str(data.columns)) # suggest doing this first to check the column names for input
     return(data)
 
-def predict_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
+def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
 
     """
-    predict_single
+    build_and_test_single
 
-    Predict a list of pedestal heights for a single type of pedestal, and calculate the mean squared error of these predictions.
+    Build and test a model predicting a single column of data from multiple input columns. Calculate the mean squared error of model predictions.
 
     Args:
         csv_name (string): filename of csv.
@@ -47,13 +56,14 @@ def predict_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=No
     Returns:
         array: pedestal height predictions
         integer: mean squared error of these predictions.
-
-    THIS SHOULD ALSO RETURN A MODEL SUMMARY OF SOME KIND.
-    Could be more specific to JET data: either uses that specific data format, or plots pedestals with tanh model based on pedestal height (?) would need neutral flux data in the same dataset though
+        model: trained DNN model.
 
     """
 
     data = read_data(csv_name)
+
+    # search column names for each listed in input_cols and output_col
+    # if none listed, add an error message
 
     """
     SPLIT TRAIN AND TEST DATA
@@ -196,13 +206,23 @@ def predict_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=No
     m_s_e = sum(errs) / len(errs)
     print(m_s_e)
 
-    return flat_ped, m_s_e, dnn_model
+    return dnn_model, flat_ped, m_s_e # model, predictions and error
 
-def predict_multi():
+def predict_single(model,filename,input_cols):
     """
-    Function to predict multiple different pedestals from multiple inputs. May be less accurate as hyperparameters must be the
-    same for all outputs, however less time consuming if you want to predict multiple types of pedestal.
-    WIP.
-    """
+    predict_single
 
-    return
+    Predict pedestal heights using a trained DNN created with build_and_test_single.
+
+    Args:
+        model (Tensorflow model): trained DNN from build_and_test_single to predict a column with.
+        input_cols (array): input columns to apply the trained model on.
+
+    Returns:
+        array: predicted pedestal heights.
+    """
+    df = read_data(filename)
+    predict_data = df[input_cols] # this must be same size as train_data[input_cols], refer to output of previous function
+    predictions = model.predict(predict_data)
+
+    return predictions
