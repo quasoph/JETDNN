@@ -3,3 +3,8 @@ pandas
 tensorflow
 matplotlib
 requests
+seaborn
+pytest
+os
+sys
+jetdnn
