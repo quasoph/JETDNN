@@ -196,7 +196,7 @@ def predict_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=No
     m_s_e = sum(errs) / len(errs)
     print(m_s_e)
 
-    return flat_ped, m_s_e
+    return flat_ped, m_s_e, dnn_model
 
 def predict_multi():
     """

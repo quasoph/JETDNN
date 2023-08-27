@@ -1,17 +1,21 @@
-import numpy as np
-import pandas as pd
-import tensorflow as tf
-import matplotlib.pyplot as plt
-import os
-
+import tensorflow
 from tensorflow import keras
-from tensorflow.keras import layers
+import predict_ped
+from keras.utils.vis_utils import plot_model
 
-"""
-Function for plotting pedestals. Intended for use with predict_ped.predict_single function, to plot predicted pedestals using NPM.
-"""
+# VISUALISE MODELS
 
-def npm_plot(nepeds,delta_nes):
+def display_model(model):
+    """
+    Function for displaying a visualisation of the DNN model used.
+    """
+    print(model.summary())
+    plot_model(model, to_file='dnn_model_plot.png', show_shapes=True, show_layer_names=True)
+    return
+
+# VISUALISE PREDICTIONS
+
+def density_npm_plot(nepeds,delta_nes):
 
     """
     Plots a Neutral Penetration Model pedestal prediction. Could also be used with real data rather than predictions.
