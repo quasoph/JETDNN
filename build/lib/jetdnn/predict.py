@@ -5,47 +5,71 @@ import matplotlib.pyplot as plt
 import os
 
 from tensorflow import keras
-from tensorflow.keras import layers
+from keras import layers
 
 print(tf.__version__)
 
-def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
+def get_train_test_data(dataset):
 
     """
-    REQUIRED ARGUMENTS:
-    csv_name (string): filename of csv
-    input_cols (list): list of column names (as strings) of engineering parameters to predict from
-    output_col (string): name of column you'd like to predict
-    
-    OPTIONAL ARGUMENTS:
-    plot_col (string): name of column you'd like to plot your predictions against, ideally from the engineering parameters
-    learning_rate (integer): value from 0.1 - 0.0001 representing the learning rate of the Keras Adam optimizer (documentation here: _____)
-    epochs (integer): number of epochs for training the DNN
-    batch_size (integer): batch size for training the DNN
-    maxoutput (Boolean): set True to display a more detailed output, useful for debugging
-    
-    FUTURE IDEAS:
-    - create input for a separate test csv so training and testing data can be two separate files
-    - automatically convert arguments to their required dtype at the start of this function
-    - create warnings for incorrect dtypes etc
+    get_train_test_data
 
-    Returns pedestal predictions as a list for a single pedestal, and the mean squared error of these predictions.
+    Split a chosen dataset randomly into an 80/20 train-test split. Display Numpy shapes of train and test data.
+
+    Args:
+        dataset (string): filename of csv.
+    Returns:
+        array: training data.
+        array: test data.
     """
 
-    # DATA CLEANING
+    train_data, test_data = np.split(dataset.sample(frac=1,random_state=42),[int(.8*len(dataset))]) # this works!
+    print("Train data shape is: " + str(np.shape(train_data)))
+    print("Test data shape is: " + str(np.shape(test_data)))
+    return train_data, test_data
 
-    data = pd.read_csv(os.path.abspath(csv_name),index_col=False,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
-    if maxoutput == True:
-        print(data.columns) # column names
-        print(data.iloc[:,0]) # first column
-        print(data.iloc[:,1]) # second column
+def read_data(csv_name):
+    data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
+    print("Column names: " + str(data.columns)) # suggest doing this first to check the column names for input
+    return(data)
 
-    
+def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
+
+    """
+    build_and_test_single
+
+    Build and test a model predicting a single column of data from multiple input columns. Calculate the mean squared error of model predictions.
+
+    Args:
+        csv_name (string): filename of csv.
+        input_cols (list): list of column names (as strings) of engineering parameters to predict from.
+        output_col (string): name of column you'd like to predict.
+        plot_col (string): optional. Name of column you'd like to plot your predictions against, selected from the engineering parameters.
+        learning_rate (integer): optional. Value from 0.1 - 0.0001 representing the learning rate of the Keras Adam optimizer.
+            Documentation for the Adam optimizer can be found here: https://keras.io/api/optimizers/adam/.
+        epochs (integer): optional. Number of epochs for training the DNN. Typical starting values may be 50 for a smaller dataset up to 500 for a large dataset.
+            If not given, the function will use a default value of 50.
+        batch_size (integer): optional. Batch size for training the DNN, either 8, 16, 32 or 64. Smaller batch sizes may give more accurate predictions but take more time.
+            If not given, the function will use a default value of 8.
+        maxoutput (Boolean): optional. Set equal to True to display a more detailed output, useful for debugging.
+
+    Returns:
+        array: pedestal height predictions.
+        integer: mean squared error of these predictions.
+        Tensorflow Model: trained DNN model.
+
+    """
+
+    data = read_data(csv_name)
+
+    # search column names for each listed in input_cols and output_col
+    # if none listed, add an error message
+
     """
     SPLIT TRAIN AND TEST DATA
     """
 
-    train_data, test_data = np.split(data.sample(frac=1,random_state=42),[int(.8*len(data))]) # this works!
+    train_data, test_data = get_train_test_data(data)
     if maxoutput == True:
         print("Train and test data are of type " + str(type(train_data)))
         print("Train data size is " + str(train_data.size))
@@ -182,13 +206,23 @@ def single_ped(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,e
     m_s_e = sum(errs) / len(errs)
     print(m_s_e)
 
-    return flat_ped, m_s_e
+    return dnn_model, flat_ped, m_s_e # model, predictions and error
 
-def multi_ped():
+def predict_single(model,filename,input_cols):
     """
-    Function to predict multiple different pedestals from multiple inputs. May be less accurate as hyperparameters must be the
-    same for all outputs, however less time consuming if you want to predict multiple types of pedestal.
-    WIP.
-    """
+    predict_single
 
-    return
+    Predict pedestal heights using a trained DNN created with build_and_test_single.
+
+    Args:
+        model (Tensorflow Model): trained DNN from build_and_test_single to predict a column with.
+        input_cols (array): input columns to apply the trained model on.
+
+    Returns:
+        array: predicted pedestal heights.
+    """
+    df = read_data(filename)
+    predict_data = df[input_cols] # this must be same size as train_data[input_cols], refer to output of previous function
+    predictions = model.predict(predict_data)
+
+    return predictions
