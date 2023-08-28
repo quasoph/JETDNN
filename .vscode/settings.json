@@ -1,7 +1,7 @@
 {
     "files.autoSave": "onFocusChange",
     "python.testing.pytestArgs": [
-        "tests"
+        "tests","--no-cov"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
