@@ -16,4 +16,4 @@ def test_read_data():
     output_expected = testdf
 
     output = jetdnn.predict.read_data(testcsv)
-    assert output == pytest.approx(output_expected,abs=1e-3)
+    assert output == output_expected
