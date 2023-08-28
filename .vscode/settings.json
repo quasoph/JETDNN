@@ -1,7 +1,7 @@
 {
     "files.autoSave": "onFocusChange",
     "python.testing.pytestArgs": [
-        "tests","--no-cov"
+        "tests","--no-cov","--rootdir","$JETDNN/tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
