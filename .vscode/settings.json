@@ -2,5 +2,5 @@
     "python.testing.pytestArgs": [],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.cwd": "JETDNN/tests"
+    "python.testing.cwd": "$JETDNN/tests"
 }
