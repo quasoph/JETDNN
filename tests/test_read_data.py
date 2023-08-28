@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import pytest
 import sys
+import jetdnn
 
 def test_read_data():
     """Tests basic functionality of read_data function to read a .csv or .dat file."""
@@ -14,5 +15,5 @@ def test_read_data():
 
     output_expected = testdf
 
-    output = sys.predict.read_data(testcsv)
+    output = jetdnn.predict.read_data(testcsv)
     assert output == pytest.approx(output_expected,abs=1e-3)
