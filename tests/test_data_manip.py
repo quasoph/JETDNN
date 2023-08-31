@@ -18,6 +18,8 @@ import jetdnn
 g = pkg_resources.get_distribution("jetdnn").version
 print(g)
 
+# DATA MANIPULATION TESTS
+
 def test_read_data():
     """Tests basic functionality of read_data function to read a .csv or .dat file."""
 
