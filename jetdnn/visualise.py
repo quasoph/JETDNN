@@ -4,17 +4,18 @@ import predict
 from keras.utils import plot_model
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 # get equation
 
 import numpy as np
 import tensorflow as tf
 
-def get_equation(model,input_cols):
+def get_equation(model,filename,input_cols):
     """
     get_equation
 
-    Produce an analytic equation from a trained DNN model.
+    Produce an analytic equation from a trained DNN model, using forward propagation with numerical methods.
 
     Currently assumes each input is a single value, will be changed to accept full input columns.
 
@@ -37,7 +38,9 @@ def get_equation(model,input_cols):
             return 0
         
     equation = ""
-    x = input_cols
+
+    data = pd.read_csv(filename)
+    x = data[input_cols]
     
     for n in range(len(model.layers)): # for each layer
         layer = model.layers[n]
