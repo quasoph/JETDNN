@@ -15,3 +15,6 @@ sys.path.insert(0, str(main_folder / 'tests'))
 os.chdir(main_folder / 'jetdnn')
 
 import jetdnn
+
+def test_dnn():
+    return
