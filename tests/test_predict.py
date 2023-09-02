@@ -20,10 +20,12 @@ import jetdnn
 """
 The error provided is the error found for temperature data in the dataset used for "On neutral ground: can neutrals influence plasma pedestal formation?" by S. Frankel, J. Simpson and E. Solano
 It is suggested to use this dataset or temperature pedestal data for testing with the below functions.
+
+Assumes that test_data_manip is successful.
 """
 
 def test_build_and_test_single():
-    # check that predictions match actual data
+    
     test_data = pd.read_csv("filename.csv")
     input_cols = ["B-field","I_p","triangularity"]
     real_output_col = ["ped_height"]
@@ -34,7 +36,7 @@ def test_build_and_test_single():
     assert output == pytest.approx(output_expected,abs(0.011)) # 0.011 keV based on temperature pedestal findings from summer placement
 
 def test_predict_single():
-    # check that predictions match actual data
+    
     test_data = pd.read_csv("filename.csv")
     input_cols = ["B-field","I_p","triangularity"]
     real_output_col = ["ped_height"]
