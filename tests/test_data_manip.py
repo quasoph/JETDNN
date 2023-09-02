@@ -16,7 +16,7 @@ os.chdir(main_folder / 'jetdnn')
 
 import jetdnn
 g = pkg_resources.get_distribution("jetdnn").version
-print(g)
+print("jetdnn version: " + str(g))
 
 # DATA MANIPULATION TESTS
 
