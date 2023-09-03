@@ -24,27 +24,24 @@ It is suggested to use this dataset or temperature pedestal data for testing wit
 Assumes that test_data_manip is successful.
 """
 
-test_csv = "table_EUROfusion_db_JSimpson_24april2019_D_withpellets_normp_nokikcs_only_validated.dat"
-df = pd.read_csv(os.path.abspath("../" + test_csv),sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
-print(df.columns)
-
 def test_build_and_test_single():
+    
+    test_data = pd.read_csv("filename.csv")
 
-    test_csv = "table_EUROfusion_db_JSimpson_24april2019_D_withpellets_normp_nokikcs_only_validated.dat"
-    csv_path = os.path.abspath("../" + test_csv)
-    test_data = pd.read_csv(csv_path,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
+    g = jetdnn.predict.read_data("filename.csv")
+    print(g)
 
-    input_cols = ["Ip (MA)","P_tot (MW)","B (T)"]
-    real_output_col = ["Te ped height pre-ELM (keV)"]
+    input_cols = ["B-field","I_p","triangularity"]
+    real_output_col = ["ped_height"]
 
     output_expected = test_data[real_output_col]
-    output = jetdnn.predict.build_and_test_single(csv_path,input_cols,real_output_col)[1] # returns flat_ped, or the predictions
+    output = jetdnn.predict.build_and_test_single(test_data,input_cols,real_output_col)[1] # returns flat_ped, or the predictions
 
     assert output == pytest.approx(output_expected,abs(0.011)) # 0.011 keV based on temperature pedestal findings from summer placement
 
 def test_predict_single():
     
-    test_data = pd.read_csv("table_EUROfusion_db_JSimpson_24april2019_D_withpellets_normp_nokikcs_only_validated.dat")
+    test_data = pd.read_csv("filename.csv")
     input_cols = ["B-field","I_p","triangularity"]
     real_output_col = ["ped_height"]
 

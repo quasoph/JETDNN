@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "JETDNN",
-    version = "1.1.0",
+    version = "1.2.0",
     author = "S. Frankel, J. Simpson and E. Solano.",
     author_email = "s.frankel2@newcastle.ac.uk",
     url = "https://github.com/quasoph/JETDNN",
