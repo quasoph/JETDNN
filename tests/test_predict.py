@@ -27,6 +27,10 @@ Assumes that test_data_manip is successful.
 def test_build_and_test_single():
     
     test_data = pd.read_csv("filename.csv")
+
+    g = jetdnn.predict.read_data("filename.csv")
+    print(g)
+
     input_cols = ["B-field","I_p","triangularity"]
     real_output_col = ["ped_height"]
 
