@@ -22,10 +22,14 @@ Assumes that test_predict is successful.
 
 def test_get_equation():
 
-    model = jetdnn.predict.build_and_test_single("filename.csv",["B-field","I_p","triangularity"],"ped_height")[0]
+    filename = "filename.csv"
     input_cols = ["B-field","I_p","triangularity"]
+    test_df = pd.read_csv(filename)
+    testinput = test_df[input_cols]
 
-    output_expected = model.predict(input_cols) # this should be filenamedf[input_cols], change get_equation to reflect this
-    output = jetdnn.visualise.get_equation(model,input_cols)[1]
+    model = jetdnn.predict.build_and_test_single(filename,input_cols,"ped_height")[0]
+
+    output_expected = model.predict(testinput) # uses tensorflow predict function
+    output = jetdnn.visualise.get_equation(model,filename,input_cols)[1]
 
     assert output == pytest.approx(output_expected,abs(1e-3)) # checks that the output of the neural network checks out with the tensorflow predicted values
