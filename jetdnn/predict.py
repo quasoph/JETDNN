@@ -211,7 +211,7 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
     m_s_e = sum(errs) / len(errs)
     print(m_s_e)
 
-    return dnn_model, flat_ped, m_s_e # model, predictions and error
+    return dnn_model, flat_ped, m_s_e, test_data # model, predictions and error
 
 def predict_single(model,filename,input_cols):
     """
@@ -226,7 +226,7 @@ def predict_single(model,filename,input_cols):
     Returns:
         array: predicted pedestal heights.
     """
-    df = read_data(filename)
+    df = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
     predict_data = df[input_cols] # this must be same size as train_data[input_cols], refer to output of previous function
     predictions = model.predict(predict_data)
 

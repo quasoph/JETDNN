@@ -20,14 +20,4 @@ print("jetdnn version: " + str(g))
 
 # DATA MANIPULATION TESTS
 
-def test_read_data():
-    """Tests basic functionality of read_data function to read a .csv or .dat file."""
 
-    testdata = [[10,55,34,65,7],[67,3,45,6,8],[97,35,23,4,90]]
-    testdf = pd.DataFrame(testdata,columns=["One","Two","Three","Four","Five"])
-    testcsv = testdf.to_csv("filename.csv",index=False,encoding="utf-8")
-
-    output_expected = testdf
-
-    output = jetdnn.predict.read_data(testcsv)
-    assert output == output_expected

@@ -39,8 +39,10 @@ def get_equation(model,filename,input_cols):
         
     equation = ""
 
-    data = pd.read_csv(filename)
+    data = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
+
     x = data[input_cols]
+    layer_nodes = [len(x),128,128,128,128,1]
     
     for n in range(len(model.layers)): # for each layer
         layer = model.layers[n]
@@ -49,12 +51,16 @@ def get_equation(model,filename,input_cols):
         w = weights[0] # define weights
         nodes = []
 
-        if n != 0: # if not the input layer
-            for j in range(0,len(w[0])): # for each node (e.g. for each weight in w0 e.g. w01, w02, w03 etc)
+        if n != 0:
+
+            for j in range(0,layer_nodes[n]): # for each node (e.g. for each weight in w0 e.g. w01, w02, w03 etc)
                 node = 0
                 node_eqn = ""
-                for i in range(0,len(x)): # for each input, add weights and inputs to node
-                    node += float(x[i]@w[i][j])
+                for i in range(0,len(input_cols)): # for each input, add weights and inputs to node
+                    
+                    col = np.array(x.iloc[:,i]) # gets ith column, converts to numpy array
+
+                    node += col * float(w[i][j]) # gives the jth value in i: ERROR: for some reason w[i,j] has shape 128, should have 3 lists of 128 vals each. Suggest printing weights array for debugging (important). Check get_weights MS Edge folder
                     node_eqn += "x" + str(i) + "*" + str(w[i][j]) + " + "
                 
                 if activation_relu(node + b) != 0:
