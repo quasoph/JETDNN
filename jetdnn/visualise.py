@@ -28,11 +28,8 @@ def get_equation(model,filename,input_cols):
         list: x, the predicted values (should align with those returned by model.predict).
     """
 
-    # x is a list of inputs
-    # i think W[0] is a list of weights for that layer
-
     def activation_relu(input):
-        if input > 0:
+        if all(n > 0 for n in input.tolist()): # float object not iterable for 2nd iteration round (input is now a list of floats, need range statement)
             return input
         else:
             return 0
@@ -44,33 +41,40 @@ def get_equation(model,filename,input_cols):
     x = data[input_cols]
     layer_nodes = [len(x),128,128,128,128,1]
     
-    for n in range(len(model.layers)): # for each layer
+    for n in range(0,len(model.layers)): # for each layer
         layer = model.layers[n]
         weights = layer.get_weights() # get list of weights for one layer e.g. W[0][1],W[0][2]
-        b = weights[1] # define bias
-        w = weights[0] # define weights
-        nodes = []
 
-        if n != 0:
+        if len(weights) != 2: # if it is a dropout layer, there are no weights, so move to next layer
+            print("No weights in this layer")
+        else:
+            b = weights[1] # define bias
+            w = weights[0] # define weights
+            nodes = []
 
-            for j in range(0,layer_nodes[n]): # for each node (e.g. for each weight in w0 e.g. w01, w02, w03 etc)
-                node = 0
-                node_eqn = ""
-                for i in range(0,len(input_cols)): # for each input, add weights and inputs to node
+            if n != 0:
+
+                for j in range(0,layer_nodes[n]): # for each node (e.g. for each weight in w0 e.g. w01, w02, w03 etc)
+                    node = 0
+                    node_eqn = ""
+                    for i in range(0,len(input_cols)): # for each input, add weights and inputs to node
+                        
+                        if isinstance(x,pd.DataFrame):
+                            col = np.array(x.iloc[:,i]) # gets ith column, converts to numpy array
+                        else:
+                            col = x[i]
+                        
+                        node += (col * float(w[i,j])) # gives the jth value in i: ERROR: for some reason w[i,j] has shape 128, should have 3 lists of 128 vals each. Suggest printing weights array for debugging (important). Check get_weights MS Edge folder
+                        node_eqn += "x" + str(i) + "*" + str(w[i,j]) + " + "
                     
-                    col = np.array(x.iloc[:,i]) # gets ith column, converts to numpy array
+                    if activation_relu(node + b[j]) is not 0:
+                        node += b[j]
+                        node_eqn += str(b[j])
 
-                    node += col * float(w[i][j]) # gives the jth value in i: ERROR: for some reason w[i,j] has shape 128, should have 3 lists of 128 vals each. Suggest printing weights array for debugging (important). Check get_weights MS Edge folder
-                    node_eqn += "x" + str(i) + "*" + str(w[i][j]) + " + "
-                
-                if activation_relu(node + b) != 0:
-                    node += b
-                    node_eqn += str(b)
+                    nodes.append(activation_relu(node)) # add node to node list
+                    equation += node_eqn # adds every node to the main equation
 
-                nodes.append(activation_relu(node)) # add node to node list
-                equation += node_eqn # adds every node to the main equation
-
-            x = nodes # node values become new inputs
+                x = nodes # node values become new inputs
     
 
     # now out of all loops
