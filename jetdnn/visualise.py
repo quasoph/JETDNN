@@ -5,19 +5,18 @@ from keras.utils import plot_model
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import re
 
 # get equation
 
 import numpy as np
 import tensorflow as tf
 
-def get_equation(model,filename,input_cols):
+def get_equation(model,filename,input_cols,output_col):
     """
     get_equation
 
     Produce an analytic equation from a trained DNN model, using forward propagation with numerical methods.
-
-    Currently assumes each input is a single value, will be changed to accept full input columns.
 
     Args:
         model (Tensorflow Model): trained DNN from build_and_test_single.
@@ -79,7 +78,7 @@ def get_equation(model,filename,input_cols):
     
 
     # now out of all loops
-    """
+    
     added_weights = np.zeros(len(input_cols))
     short_eqn = ""
 
@@ -89,16 +88,15 @@ def get_equation(model,filename,input_cols):
         res = [n for n in range(0,len(equation)) if equation.startswith(substring,n)] # finds positions of xi
         for q in res:
             coeff_res.append(q+3) # gets positions of x-coefficients
-        added_weights[i] += equation[coeff_res] # sums coefficients of xi
+        for w in coeff_res:
+            added_weights[i] += float(equation[w:w+4]) # sums coefficients of xi
 
-        short_eqn += str(added_weights[i]) + "x" + str(i) + " + "
+        short_eqn += str(np.round(added_weights[i],3)) + " [" + str(input_cols[i]) + "] " + " + "
 
-    print(short_eqn)
+    print(str(output_col) + " = " + short_eqn)
 
-    return short_eqn, x
-    """
-    print(equation)
-    return equation, x
+    return short_eqn, equation, np.array(x)
+
 
 # VISUALISE MODELS
 
