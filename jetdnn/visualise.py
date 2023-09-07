@@ -29,10 +29,11 @@ def get_equation(model,filename,input_cols):
     """
 
     def activation_relu(input):
-        if all(n > 0 for n in input.tolist()): # float object not iterable for 2nd iteration round (input is now a list of floats, need range statement)
-            return input
-        else:
-            return 0
+        
+        for num in input.tolist():
+            if num <= 0:
+                return 0
+        return input
         
     equation = ""
 
@@ -78,8 +79,8 @@ def get_equation(model,filename,input_cols):
     
 
     # now out of all loops
-
-    added_weights = np.zeroes(len(input_cols))
+    """
+    added_weights = np.zeros(len(input_cols))
     short_eqn = ""
 
     for i in range(0,len(input_cols)):
@@ -95,6 +96,9 @@ def get_equation(model,filename,input_cols):
     print(short_eqn)
 
     return short_eqn, x
+    """
+    print(equation)
+    return equation, x
 
 # VISUALISE MODELS
 
