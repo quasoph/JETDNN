@@ -95,6 +95,8 @@ def get_equation(model,filename,input_cols,output_col):
 
     print(str(output_col) + " = " + short_eqn)
 
+    print(equation)
+
     return short_eqn, equation, np.array(x)
 
 
