@@ -67,8 +67,12 @@ def get_equation(model,filename,input_cols,output_col):
                             col = np.array(x.iloc[:,i]) # gets ith column, converts to numpy array
                         else:
                             col = x[i]
+
+                        # BUILD NODE
                         
                         node += (col * float(w[i,j])) # gives the jth value in i
+
+                        # BUILD MAIN NODE EQUATION BEFORE ADDING BIAS
                         
                         if x_eqn != "x" + str(i): # if not the first layer: IGNORE FOR FIRST PASS OF n!
                             if node_equations[i] == node_equations[-1]: # if last iteration
@@ -83,6 +87,8 @@ def get_equation(model,filename,input_cols,output_col):
                                 node_eqn += str(x_eqn) + "*" + str(w[i,j])
                             else:
                                 node_eqn += str(x_eqn) + "*" + str(w[i,j]) + " + "
+
+                        # BUILDS NODES AND NODE EQUATIONS (WITHOUT BIASES) BY END OF ALL i ITERATIONS
                     
                     node += b[j] # node now contains weights and bias
                     node_eqn += str(b[j])
