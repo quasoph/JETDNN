@@ -70,15 +70,19 @@ def get_equation(model,filename,input_cols,output_col):
                         
                         node += (col * float(w[i,j])) # gives the jth value in i
                         
-                        if x_eqn != "x" + str(i):
-                        
-                            for y in equation:
-                                x_eqn = y
-                                node_eqn += "(" + str(x_eqn) + ")" + "*" + str(w[i,j]) + " + " # multiply each node eqn by weight and sum
+                        if x_eqn != "x" + str(i): # if not the first layer: IGNORE FOR FIRST PASS OF n!
+                            if node_equations[i] == node_equations[-1]: # if last iteration
+                                x_eqn = node_equations[i]
+                                node_eqn += "(" + str(x_eqn) + ")" + "*" + str(w[i,j]) # finish off equation
+                            else:
+                                x_eqn = node_equations[i] # multiply appropriate equation with weight
+                                node_eqn += "(" + str(x_eqn) + ")" + "*" + str(w[i,j]) + " + "
 
                         else:
-
-                            node_eqn += str(x_eqn) + "*" + str(w[i,j]) + " + "
+                            if i == len(input_cols): # if the final iteration, finishes off expression
+                                node_eqn += str(x_eqn) + "*" + str(w[i,j])
+                            else:
+                                node_eqn += str(x_eqn) + "*" + str(w[i,j]) + " + "
                     
                     node += b[j] # node now contains weights and bias
                     node_eqn += str(b[j])
@@ -86,17 +90,17 @@ def get_equation(model,filename,input_cols,output_col):
                     if activation_relu(node) is not 0: # if +ive node value
 
                         nodes.append(activation_relu(node)) # add node to node list for that layer
-                        equation.append(node_eqn) # add node equation to list for that layer
+                        node_equations.append(node_eqn) # add node equation to list for that layer
 
 
                 x = nodes # node values become new inputs
-                x_eqn = equation # list of node equations for that layer
+                x_eqn = node_equations # list of node equations for that layer
                 
     
 
     # now out of all loops
     
-    final_eqn = equation[-1] # this should be the final equation
+    final_eqn = node_equations[-1] # this should be the final equation
 
     smpl = simplify(final_eqn)
 
