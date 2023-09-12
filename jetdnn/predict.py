@@ -3,6 +3,7 @@ import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
+import seaborn as sns
 
 from tensorflow import keras
 from keras import layers
@@ -177,8 +178,8 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
         x = np.array(testinput[plot_col])
     else:
         x = np.array(testinput[input_cols[0]])
-    plt.plot(x,flat_ped,".",label="Predicted values")
-    plt.plot(x,testoutput,".",label="True values")
+    sns.relplot(x=x,y=flat_ped,"o",alpha=.5,color="hotpink",label="Predicted values")
+    sns.relplot(x=x,y=testoutput,"o",alpha=.5,color="blue",label="True values")
     plt.xlabel(plot_col)
     plt.ylabel(output_col)
     plt.legend()
@@ -190,8 +191,8 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
 
     x = np.linspace(min(np.array(testoutput)),max(np.array(testoutput)),100)
     y = x
-    plt.plot(testoutput,flat_ped,".",label = "Data points")
-    plt.plot(x,y,label="y = x")
+    sns.relplot(x=testoutput,y=flat_ped,".",alpha=.5,color="blueviolet",label = "Data points")
+    plt.plot(x,y,color="blueviolet",label="y = x")
     plt.title("Accuracy")
     plt.xlabel(r"True values [$m^{-3}$]")
     plt.ylabel(r"Predicted values [$m^{-3}$]")
