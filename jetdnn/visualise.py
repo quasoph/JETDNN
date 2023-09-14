@@ -34,7 +34,7 @@ def get_equation(model,filename,input_cols,output_col):
 
         return output
         
-    equation = []
+    node_equations = []
 
     data = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
 
