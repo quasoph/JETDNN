@@ -28,10 +28,12 @@ def get_train_test_data(dataset):
     print("Test data shape is: " + str(np.shape(test_data)))
     return train_data, test_data
 
-def read_data(csv_name):
-    data = pd.read_csv(os.path.abspath(csv_name),index_col=True,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
+"""
+def read_data(csv):
+    data = pd.read_csv(csv,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True) # maybe change separator depending on testing
     print("Column names: " + str(data.columns)) # suggest doing this first to check the column names for input
     return(data)
+"""
 
 def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_rate=None,epochs=None,batch_size=None,maxoutput=None): # arguments set to None are optional
 
@@ -60,7 +62,7 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
 
     """
 
-    data = read_data(csv_name)
+    data = pd.read_csv(csv_name,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
 
     # search column names for each listed in input_cols and output_col
     # if none listed, add an error message
@@ -171,7 +173,10 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
     Plots predicted and true pedestal heights against a chosen column from the input values.
     """
 
-    x = np.array(testinput[plot_col])
+    if plot_col != None:
+        x = np.array(testinput[plot_col])
+    else:
+        x = np.array(testinput[input_cols[0]])
     plt.plot(x,flat_ped,".",label="Predicted values")
     plt.plot(x,testoutput,".",label="True values")
     plt.xlabel(plot_col)
@@ -206,7 +211,7 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
     m_s_e = sum(errs) / len(errs)
     print(m_s_e)
 
-    return dnn_model, flat_ped, m_s_e # model, predictions and error
+    return dnn_model, flat_ped, m_s_e, test_data # model, predictions and error
 
 def predict_single(model,filename,input_cols):
     """
@@ -221,7 +226,7 @@ def predict_single(model,filename,input_cols):
     Returns:
         array: predicted pedestal heights.
     """
-    df = read_data(filename)
+    df = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
     predict_data = df[input_cols] # this must be same size as train_data[input_cols], refer to output of previous function
     predictions = model.predict(predict_data)
 
