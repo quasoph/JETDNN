@@ -102,9 +102,9 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
         model = keras.Sequential([
             norm,
             layers.Dense(128,activation="relu"),
-            layers.Dropout(0.2), # could experiment with removing dropout layers, e.g. a separate function
+            #layers.Dropout(0.2), # could experiment with removing dropout layers, e.g. a separate function
             layers.Dense(128,activation="relu"),
-            layers.Dropout(0.2),
+            #layers.Dropout(0.2),
             layers.Dense(1)
         ])
         if learnrate==None:
