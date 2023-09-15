@@ -48,7 +48,7 @@ def get_equation(model,test_data,input_cols,output_col):
         w = weights[0] # define weights
         nodes = []
 
-        if n != 0:
+        if n != 0: # try removing this next time you're testing
 
             for j in range(0,layer_nodes[n]): # for each node (e.g. for each weight in w0 e.g. w01, w02, w03 etc)
                 node = 0
