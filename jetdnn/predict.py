@@ -175,9 +175,11 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
     """
 
     if plot_col != None:
-        x = np.array(testinput[plot_col])
+        x = list(testinput[plot_col].values.flatten())
     else:
-        x = np.array(testinput[input_cols[0]])
+        x = list(testinput[input_cols[0]].values.flatten())
+
+    testoutput = list(testoutput.values.flatten())
     sns.relplot(x=x,y=flat_ped,alpha=.5,color="hotpink",label="Predicted values")
     sns.relplot(x=x,y=testoutput,alpha=.5,color="blue",label="True values")
     plt.xlabel(plot_col)
@@ -212,6 +214,8 @@ def build_and_test_single(csv_name,input_cols,output_col,plot_col=None,learning_
     m_s_e = sum(errs) / len(errs)
     print(m_s_e)
 
+    # ensures 1d list output
+
     return dnn_model, flat_ped, m_s_e, test_data # model, predictions and error
 
 def predict_single(model,filename,input_cols):
@@ -230,5 +234,7 @@ def predict_single(model,filename,input_cols):
     df = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
     predict_data = df[input_cols] # this must be same size as train_data[input_cols], refer to output of previous function
     predictions = model.predict(predict_data)
+
+    #predictions = list(predictions.flatten())
 
     return predictions

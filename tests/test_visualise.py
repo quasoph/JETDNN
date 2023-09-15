@@ -30,11 +30,11 @@ def test_get_equation():
     test_data = jetdnn.predict.build_and_test_single(csv_path,input_cols,real_output_col)[3]
     testinput = test_data[input_cols]
 
-    model = jetdnn.predict.build_and_test_single(csv_path,input_cols,real_output_col)[0]
+    model, output_expected, error, data = jetdnn.predict.build_and_test_single(csv_path,input_cols,real_output_col)
 
-    output_expected = model.predict(testinput) # uses tensorflow predict function
-    output = jetdnn.visualise.get_equation(model,csv_path,input_cols,real_output_col)[2]
+    output_expected = np.array(output_expected)
+    output = np.array(jetdnn.visualise.get_equation(model,data,input_cols,real_output_col)[2]).flatten()
 
-    print(jetdnn.visualise.get_equation(model,csv_path,input_cols,real_output_col)[0])
+    #print(jetdnn.visualise.get_equation(model,csv_path,input_cols,real_output_col)[0])
 
-    assert output == pytest.approx(output_expected,abs=5) # checks that the output of the neural network checks out with the tensorflow predicted values
+    assert output == pytest.approx(output_expected,abs=0.8) # checks that the output of the neural network checks out with the tensorflow predicted values

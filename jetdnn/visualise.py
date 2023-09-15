@@ -13,7 +13,7 @@ from sympy import *
 import numpy as np
 import tensorflow as tf
 
-def get_equation(model,filename,input_cols,output_col):
+def get_equation(model,test_data,input_cols,output_col):
     """
     get_equation
 
@@ -36,9 +36,9 @@ def get_equation(model,filename,input_cols,output_col):
         
     node_equations = []
 
-    data = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
+    #data = pd.read_csv(filename,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
 
-    x = data[input_cols]
+    x = test_data[input_cols]
     layer_nodes = [len(x),128,128,128,128,1]
     
     for n in range(0,len(model.layers)): # for each layer
@@ -112,6 +112,9 @@ def get_equation(model,filename,input_cols,output_col):
 
     print(final_eqn)
     print(smpl)
+    print(x)
+
+    #x = list(x.flatten()) # converts x to 1d list (not needed, x already list)
 
     return smpl, final_eqn, x
 
