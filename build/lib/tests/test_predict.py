@@ -44,7 +44,7 @@ def test_build_and_test_single():
 
 def test_predict_single():
     
-    csv = "table_EUROfusion_db_JSimpson_24april2019_D_withpellets_normp_nokikcs_only_validated.dat"
+    csv = "table_EUROfusion_db_JSimpson_24april2019_D_withpellets_normp_nokikcs_only_validated.dat" # can be .csv or .dat format
     csv_path = os.path.abspath("../" + csv)
     df = pd.read_csv(csv_path,sep="\s{3,}|\s{3,}|\t+|\s{3,}\t+|\t+\s{3,}",skipinitialspace=True)
 
@@ -54,6 +54,6 @@ def test_predict_single():
     test_model = jetdnn.predict.build_and_test_single(csv_path,input_cols,real_output_col)[0]
     output = jetdnn.predict.predict_single(test_model,csv_path,input_cols)
 
-    output_expected = df[real_output_col]
+    output_expected = df[real_output_col].values.flatten().tolist()
 
     assert output == pytest.approx(output_expected,abs=0.7) # 0.7 found to be the absolute error with testing
