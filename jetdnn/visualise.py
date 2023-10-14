@@ -104,7 +104,10 @@ def get_equation(model,test_data,input_cols,output_col):
     
     final_eqn = node_equations[-1] # this should be the final equation
 
-    smpl = simplify(final_eqn)
+    smpl = str(simplify(final_eqn))
+
+    for n in range(0,len(input_cols)):
+        smpl.replace("x"+n,input_cols[n]) # not tested - everything else tested
 
     print(final_eqn)
     print(smpl)
