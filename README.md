@@ -35,3 +35,5 @@ An example workflow can look like:
 3. Predict pedestal heights using this model from any dataset with `jetdnn.predict.predict_single()`.
 
 4. Visualise model as an analytic equation with functions from `jetdnn.visualise`.
+
+:)
